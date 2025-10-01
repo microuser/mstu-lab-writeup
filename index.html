@@ -1,144 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSTU Buy Guide - Autumn Dark Mode</title>
-    <style>
-        body {
-            background-color: #282828; /* Dark autumn background */
-            color: #E0E0E0; /* Light text for contrast */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            overflow-y: scroll; /* Ensures vertical scrolling */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🍁 Autumn Guide: 2x Leveraged ETFs 🍂</title>
+  <style>
+    :root {
+      --bg: #1a0e0a;           /* deep brown */
+      --card: #24130f;         /* darker chestnut */
+      --text: #eae6df;         /* warm off-white */
+      --muted: #d7c7b6;        /* parchment */
+      --pumpkin: #d97706;      /* pumpkin orange */
+      --maple: #b91c1c;        /* maple red */
+      --gold: #f2a415;         /* golden */
+      --plum: #7c3aed;         /* plum accent */
+      --leaf: #92400e;         /* brown/orange */
+      --ring: rgba(245, 158, 11, 0.35);
+      --text: #eae6df;   /* was #f8f5f2 → warmer, less bright */
+      --muted: #d7c7b6;  /* was #ead9c8 → slightly deeper */
+      --gold: #f2a415;   /* a bit softer than #f59e0b */
+    }
+
+    @media (prefers-color-scheme: light) {
+        body { background: linear-gradient(180deg, #faf3e7, #efe3d6); color: #2a1d18; }
+        .card { background: #fff3e3; border-color: rgba(185,28,28,0.15); }
+        .section { background: #fff0df; }
+        .raw { background: #fff3e6; color: #3b2a22; }
+        .subtitle { color: #6b4f3c; }
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #3C2F2F; /* Dark brown secondary */
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        h1 {
-            color: #FF8C00; /* Orange for autumn vibe */
-            text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 30px;
-        }
-        ol {
-            list-style-type: none;
-            counter-reset: step-counter;
-            padding: 0;
-        }
-        li {
-            counter-increment: step-counter;
-            margin-bottom: 30px;
-            position: relative;
-            padding-left: 60px;
-            font-size: 1.2em;
-        }
-        li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: -10px;
-            font-size: 4em;
-            font-weight: bold;
-            color: #FF4500; /* Bright orange for prominent numbers */
-            opacity: 0.8;
-        }
-        .step-title {
-            color: #8B4513; /* Brown for subtitles */
-            font-weight: bold;
-        }
-        .accent {
-            color: #32CD32; /* Bright green for spring leaves accent */
-            font-style: italic;
-        }
-        .note {
-            background-color: #4B0082; /* Purple complementary secondary for notes */
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            color: #FFFFFF;
-        }
-        /* Complementary palette: Orange (#FF8C00), Brown (#8B4513), Green (#32CD32), Purple (#4B0082), Dark base (#282828) */
-    </style>
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(185,28,28,0.15), transparent 60%),
+        radial-gradient(1200px 800px at 110% 110%, rgba(217,119,6,0.15), transparent 60%),
+        linear-gradient(180deg, #0e0705, var(--bg));
+      line-height: 1.65;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: min(6vw,64px) auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(36,19,15,0.9), rgba(24,12,9,0.95));
+      border: 1px solid rgba(245,158,11,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.03);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    header.hero {
+      padding: 28px 28px 16px 28px;
+      background: linear-gradient(135deg, rgba(217,119,6,0.12), rgba(185,28,28,0.12) 55%, rgba(124,58,237,0.12));
+      border-bottom: 1px solid rgba(245,158,11,0.18);
+    }
+
+    .title {
+      margin: 0 0 6px 0;
+      font-size: clamp(28px, 3.8vw, 40px);
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: var(--text);
+      text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      font-size: 12px; color: #1a0e0a; font-weight: 700;
+      background: linear-gradient(180deg, var(--gold), #f59e0bbb);
+      padding: 6px 10px; border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.25);
+    }
+
+    main.content { padding: 22px 22px 26px 22px; }
+
+    .section {
+      background: linear-gradient(180deg, rgba(36,19,15,0.6), rgba(24,12,9,0.6));
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 12px;
+      padding: 18px;
+      margin: 14px 0;
+      box-shadow: 0 0 0 3px transparent, 0 8px 18px rgba(0,0,0,0.25);
+    }
+
+    .section h2, .section h3 {
+      margin-top: 0;
+      color: var(--gold);
+      text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 8px 0 2px 0;
+    }
+
+    .raw {
+      display: block;
+      width: 100%;
+      overflow: auto;
+      background: #150b08;
+      border: 1px dashed rgba(245,158,11,0.35);
+      border-radius: 10px;
+      padding: 16px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      line-height: 1.5;
+      white-space: pre-wrap; /* preserve content but wrap long lines */
+    }
+
+    footer {
+      padding: 16px 22px 24px 22px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(245,158,11,0.18);
+      background: linear-gradient(180deg, rgba(217,119,6,0.08), rgba(185,28,28,0.08));
+    }
+
+    .cta {
+      display: inline-block;
+      background: linear-gradient(180deg, #efb43a, var(--gold));
+      color: #1a0e0a; font-weight: 800;
+      padding: 8px 14px; border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.25);
+      box-shadow: 0 4px 10px rgba(245,158,11,0.25);
+      text-decoration: none;
+    }
+
+    @media (prefers-color-scheme: light) {
+      body { background: linear-gradient(180deg, #fdf7ef, #f2e6d8); color: #1b120f; }
+      .card { background: #fff7ef; border-color: rgba(185,28,28,0.15); }
+      .section { background: #fff5ea; }
+      .raw { background: #fff8f0; color: #3b2a22; }
+      .subtitle { color: #6b4f3c; }
+    }
+
+    /* Golden simmering wave */
+    @keyframes goldenWave {
+      0%   { background-position: 120% 0, 0 0; }
+      50%  { background-position: -20% 0, 0 0; }
+      75%  { background-position: -20% 0, 0 0; }
+      100% { background-position: 120% 0, 0 0; }
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none !important; }
+      .section > h2, .section > h3 { animation: none !important; }
+    }
+
+    /* Animated gold effect on section titles */
+    .section  {
+      position: relative;
+      padding: 2px 8px;
+      border-radius: 8px;
+      background:
+        linear-gradient(60deg,
+          rgba(242,164,21,0) 0%,
+          rgba(242,164,21,0.10) 20%,
+          rgba(242,164,21,0.18) 50%,
+          rgba(242,164,21,0.10) 80%,
+          rgba(242,164,21,0) 100%
+        );
+      background-size: 300% 100%;
+      background-repeat: no-repeat;
+      animation: goldenWave 4s ease-in-out infinite;
+    }
+
+
+    header.hero {
+      background: linear-gradient(
+        135deg,
+        rgba(242,164,21,0.10),
+        rgba(185,28,28,0.10) 55%,
+        rgba(124,58,237,0.10)
+      );
+    }
+
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MSTU Buy Guide: Immediate Purchase on Ally Invest</h1>
-        <p class="accent">Autumn Dark Theme with Bright Spring Leaf Accents - Scroll Vertically for Full Steps</p>
-        
-    <ol>
-        <li>
-            <span class="step-title">Log In to Ally.com</span>
-
-            Open your browser and go to www.ally.com. Sign in to your account using your credentials. Navigate to the "Invest" section, then select "Trading" to access the platform. <span class="accent">Ensure two-factor authentication is enabled for security.</span>
-            <div class="note">Verify your account balance: Cash Available for Investment should be at least the estimated cost (e.g., $70.77 as per last check).</div>
-        </li>
-        <li>
-            <span class="step-title">Search and Verify MSTU</span>
-
-            In the "QUOTE" search bar, enter "MSTU" and confirm details: T-REX 2X Long MSTR Daily Target ETF, Last Price around $4.77 (as of 9/29/2025). Check Bid/Ask and Volume for liquidity. <span class="accent">If price is favorable (per your strategy), proceed immediately.</span>
-            <div class="note">Note: Current price is $4.77, which aligns with buying ASAP if below your threshold.</div>
-        </li>
-        <li>
-            <span class="step-title">Fund Account if Needed</span>
-
-            If funds are insufficient, transfer from your Ally bank or external account. Wait for settlement (instant internally). Calculate cost: Quantity × Current Ask Price + $0 fees.
-            <div class="note">Ally offers commission-free ETF trades for MSTU.</div>
-        </li>
-        <li>
-            <span class="step-title">Open Trade Ticket</span>
-
-            Select the "STOCK" tab (not OPTIONS or MUTUAL FUNDS). Load MSTU into the ticket if not already.
-        </li>
-        <li>
-            <span class="step-title">Enter Trade Details</span>
-
-            Action: Buy.
-
-            QTY: Enter number of shares (whole integer, based on available funds / price).
-
-            Ignore options fields like Expiration, Strike, Type.
-            <div class="note">For immediate buy: Use Market Order as recommended.</div>
-        </li>
-        <li>
-            <span class="step-title">Select Order Type</span>
-
-            Order Type: Market (for immediate execution at best available price).
-
-            Duration: Day (order cancels if not filled by end of day).
-
-            <span class="accent">This ensures you buy as soon as possible during market hours.</span>
-            <div class="note">If market is closed, it executes at next open. Avoid Limit if urgency is key.</div>
-        </li>
-        <li>
-            <span class="step-title">Review Order Summary</span>
-
-            Confirm Account, Action, QTY, Order Type. Preview estimated cost (near $4.78 Ask × QTY).
-            <div class="note">Look for errors like insufficient funds.</div>
-        </li>
-        <li>
-            <span class="step-title">Submit and Confirm</span>
-
-            Click "Place Order" after preview. Agree to disclosures. Note confirmation number.
-        </li>
-        <li>
-            <span class="step-title">Monitor Post-Trade</span>
-
-            Check "Orders" tab for status. Monitor position in account. Set alerts for price changes.
-            <div class="note">Remember MSTU's leverage risks: Suitable for short-term, not long-hold.</div>
-        </li>
-        <li>
-            <span class="step-title">Safety Checks</span>
-
-            Abort if price spikes or low volume. This is not financial advice - trade at your own risk. <span class="accent">Contact Ally support if issues arise.</span>
-        </li>
-    </ol>
-</div></body>
+  <div class="container">
+    <div class="card">
+      <header class="hero">
+        <h1 class="title">🍁 Autumn Report • 2x Leveraged ETFs 🍂</h1>
+        <p class="subtitle">A seasonal-styled rendering of your write-up with cozy fall tones, crisp typography, and helpful emojis.</p>
+        <section class="section">
+          <h3>🍂 Notes</h3>
+          <ul>
+            <li>This page uses an autumn palette: pumpkin orange, maple red, golden accents, and plum highlights.</li>
+            <li>The write-up is injected dynamically to preserve all characters like < and & without manual escaping.</li>
+            <li>Open this file via a local server for the best experience so the browser can fetch <code>writeup.txt</code>.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+    <main class="content">
+      <!-- TITLE + METADATA -->
+      <section class="section" id="meta">
+        <h2>🍁 Educational Guide to 2x Long Leveraged ETFs</h2>
+        <p><strong>Prepared by:</strong> Grok 4, xAI</p>
+        <p><strong>Date:</strong> October 01, 2025</p>
+        <p>The guide integrates discussions on 2x long ETFs, including definitions, use cases, holding periods, projections, and practical considerations for trading with Ally Invest, drawing from prior analyses.</p>
+      </section>
+    
+      <!-- ABSTRACT -->
+      <section class="section" id="abstract">
+        <h2>📜 Abstract</h2>
+        <p>This educational guide provides a comprehensive overview of 2x long leveraged exchange-traded funds (ETFs), focusing on their mechanics, risks, and practical applications for short-term trading. Inspired by ABET accreditation standards, it emphasizes student (or learner) outcomes such as understanding volatility decay, risk management, and ethical trading practices. The report explains why leveraged ETFs are suitable only for short-term strategies, offers a simulated use case with Tesla stock, projects performance under volatility, and addresses trading logistics with Ally Invest. Key sections include the purpose (why), detailed solutions, frequently asked questions, misconceptions, a glossary, and references. By October 2025, with market volatility influenced by economic factors, this guide aims to equip investors with knowledge to avoid common pitfalls, supported by data from sources like GraniteShares and Fidelity Investments [0][7]. ⚠️ The primary outcome is to foster informed decision-making, reducing the risk of financial loss from misuse of leveraged products.</p>
+      </section>
+    
+      <!-- INTRODUCTION -->
+      <section class="section" id="introduction">
+        <h2>📖 Introduction: Why This Guide?</h2>
+        <p>Leveraged ETFs, particularly 2x long variants, have gained popularity among retail investors seeking amplified returns in bullish markets. However, ⚡ their daily reset mechanism often leads to volatility decay, making them unsuitable for long-term holding and resulting in significant underperformance over time [2][3][5]. This guide addresses the educational need for clear, evidence-based information on these instruments, especially in a volatile 2025 market environment marked by interest rate fluctuations and geopolitical events.</p>
+        <p>The purpose aligns with ABET-like educational objectives: to promote “student outcomes” such as applying mathematical models to financial projections (e.g., compounding effects), evaluating ethical risks in high-leverage trading, and demonstrating continuous improvement through risk management strategies [22][23]. Why now? As of October 01, 2025, retail trading platforms like Ally Invest have expanded access to these products, but without proper education, 📉 investors face amplified losses—evidenced by historical data where leveraged ETFs decayed by 10-20% in flat but volatile periods [1][6]. This report provides a solution by synthesizing practical guidance, simulations, and references to empower learners, akin to an engineering curriculum’s focus on problem-solving and safety.</p>
+      </section>
+    
+      <!-- SOLUTION OVERVIEW -->
+      <section class="section" id="solution">
+        <h2>🧭 Solution: Comprehensive Guide to 2x Long ETFs</h2>
+    
+        <h3 id="what-is">What is a 2x Long ETF?</h3>
+        <p>A 2x long exchange-traded fund (ETF) is a leveraged investment product designed to provide 📈 twice (2x) the daily performance of an underlying asset or index, such as the S&amp;P 500 [4][7].</p>
+        <ul>
+          <li>If the underlying index rises 1% in a single trading day, the 2x ETF aims to rise about 2% (before fees and expenses).</li>
+          <li>If the index falls 1%, the ETF aims to fall about 2%.</li>
+        </ul>
+        <p>These ETFs use financial derivatives (like swaps and futures) to achieve this leverage, and they reset daily. This ⏰ means the leverage applies only to each day’s return, not over multiple days [2]. They’re popular for short-term trading to amplify potential gains (or losses) but are not meant for buy-and-hold investing due to <em>volatility decay</em> (or beta slippage), where compounding effects in volatile markets can erode returns over time—even if the underlying trends upward [3][5][6].</p>
+        <p><strong>⚠️ Key risks:</strong> Higher volatility, potential for amplified losses, management fees (often 0.9–1.5% annually), and tracking errors [0][8].</p>
+    
+        <h3 id="use-case">Use Case: Short-Term Bullish Trade on Earnings News</h3>
+        <p>Imagine you’re bullish on 🚗 Tesla (TSLA) ahead of its quarterly earnings on October 23, 2025, expecting a strong beat and positive guidance that may drive TSLA up 3–5% in after-hours and the next day [1].</p>
+        <ul>
+          <li><strong>🎯 Strategy:</strong> Buy Direxion Daily TSLA Bull 2X Shares (TSLL) at market open on Oct 24, targeting a quick 4–6% gain.</li>
+          <li><strong>Entry:</strong> $50/share at open (assuming TSLA opens +2%).</li>
+          <li><strong>Target:</strong> $53/share if TSLA hits +2.5% intraday.</li>
+          <li><strong>🛑 Stop-loss:</strong> $48 if TSLA drops 2%.</li>
+          <li><strong>Why 2x?</strong> Amplifies short-term conviction without options complexity.</li>
+          <li><strong>💰 Outcome example:</strong> If TSLA +3%, TSLL ~+6% ($3 profit/share). If -3%, ~-6%—size small (1–2% of portfolio).</li>
+        </ul>
+        <p><em>⚠️ This is speculative; always use risk management [0][9].</em></p>
+    
+        <h3 id="holding-period">How Long Should You Hold a 2x Long ETF?</h3>
+        <ul>
+          <li><strong>✅ Ideal:</strong> 1 day (or intraday). Best for short-term directional bets due to daily reset.</li>
+          <li><strong>1–5 days:</strong> Okay if the market trends strongly with low volatility; monitor daily.</li>
+          <li><strong>1–4 weeks:</strong> Risky—decay compounds; only with active management and low volatility.</li>
+          <li><strong>🚫 &gt;1 month:</strong> Generally avoid—leveraged ETFs often lag 2x the index over months [1][6].</li>
+        </ul>
+        <p><strong>💡 Rule of thumb:</strong> Reassess daily; exit if thesis changes or decay bites. Use tactically, not as core holdings [5][7].</p>
+      </section>
+    
+      <!-- PROJECTION TABLE -->
+      <section class="section" id="projection">
+        <h2>📊 Projection: Volatility Decay Simulation</h2>
+        <p>Alternating +5% and −5% daily returns over 20 trading days, starting from $1. 📉 Underlying ends slightly down; 2x decays faster due to compounding [2][6].</p>
+        <table>
+          <tr>
+            <th>Day</th><th>Underlying Return (%)</th><th>2x Return (%)</th><th>Underlying Cumulative</th><th>2x Cumulative</th>
+          </tr>
+          <tr><td>1</td><td>5.0</td><td>10.0</td><td>1.0500</td><td>1.1000</td></tr>
+          <tr><td>2</td><td>-5.0</td><td>-10.0</td><td>0.9975</td><td>0.9900</td></tr>
+          <tr><td>3</td><td>5.0</td><td>10.0</td><td>1.0474</td><td>1.0890</td></tr>
+          <tr><td>4</td><td>-5.0</td><td>-10.0</td><td>0.9950</td><td>0.9801</td></tr>
+          <tr><td>5</td><td>5.0</td><td>10.0</td><td>1.0448</td><td>1.0781</td></tr>
+          <tr><td>6</td><td>-5.0</td><td>-10.0</td><td>0.9925</td><td>0.9703</td></tr>
+          <tr><td>7</td><td>5.0</td><td>10.0</td><td>1.0421</td><td>1.0673</td></tr>
+          <tr><td>8</td><td>-5.0</td><td>-10.0</td><td>0.9900</td><td>0.9606</td></tr>
+          <tr><td>9</td><td>5.0</td><td>10.0</td><td>1.0395</td><td>1.0567</td></tr>
+          <tr><td>10</td><td>-5.0</td><td>-10.0</td><td>0.9876</td><td>0.9510</td></tr>
+          <tr><td>11</td><td>5.0</td><td>10.0</td><td>1.0369</td><td>1.0461</td></tr>
+          <tr><td>12</td><td>-5.0</td><td>-10.0</td><td>0.9851</td><td>0.9415</td></tr>
+          <tr><td>13</td><td>5.0</td><td>10.0</td><td>1.0343</td><td>1.0356</td></tr>
+          <tr><td>14</td><td>-5.0</td><td>-10.0</td><td>0.9826</td><td>0.9321</td></tr>
+          <tr><td>15</td><td>5.0</td><td>10.0</td><td>1.0318</td><td>1.0253</td></tr>
+          <tr><td>16</td><td>-5.0</td><td>-10.0</td><td>0.9802</td><td>0.9227</td></tr>
+          <tr><td>17</td><td>5.0</td><td>10.0</td><td>1.0292</td><td>1.0150</td></tr>
+          <tr><td>18</td><td>-5.0</td><td>-10.0</td><td>0.9777</td><td>0.9135</td></tr>
+          <tr><td>19</td><td>5.0</td><td>10.0</td><td>1.0266</td><td>1.0049</td></tr>
+          <tr><td>20</td><td>-5.0</td><td>-10.0</td><td>0.9753</td><td>0.9044</td></tr>
+        </table>
+        <h3>Key Insights from Projection</h3>
+        <ul>
+          <li>⚠️ After 20 days: Underlying down 2.47%; 2x down 9.56% (worse than 2x the loss due to decay) [3].</li>
+          <li>📈 In a steady uptrend (e.g., +0.5% daily), 2x would outperform (~+1% daily compounded). Volatility amplifies erosion [2][5].</li>
+          <li>If plotted: underlying zigzags near 1.0; 2x trends lower, diverging after ~5–10 days.</li>
+        </ul>
+      </section>
+    
+      <!-- CONSIDERATIONS -->
+      <section class="section" id="considerations">
+        <h2>🧠 Additional Considerations</h2>
+        <table>
+          <tr><th>Consideration</th><th>Description</th><th>Impact on 2x Long Holding</th></tr>
+          <tr><td>⚡ Volatility Decay</td><td>Daily resets compound losses more than gains in choppy markets.</td><td>High—Shorten hold to 1–3 days in volatile periods (VIX &gt;20) [2][3].</td></tr>
+          <tr><td>Compounding Effect</td><td>Gains/losses apply to the previous day’s leveraged value.</td><td>Medium—Favors strong trends; hurts sideways moves [6].</td></tr>
+          <tr><td>Fees &amp; Expenses</td><td>Annual expense ratios ~1%, plus swap costs.</td><td>Medium—Erodes returns faster on longer holds (&gt;1 week) [0].</td></tr>
+          <tr><td>Liquidity</td><td>Trade like stocks, but spreads widen in stress.</td><td>Low—Fine for daily trades; check volume &gt;1M shares/day [7].</td></tr>
+          <tr><td>Market Direction</td><td>Best in bullish, low-vol environments.</td><td>High—Exit if bearish signals emerge [1].</td></tr>
+          <tr><td>⚖️ Position Sizing</td><td>Leverage doubles risk.</td><td>High—Limit to 5–10% of portfolio per trade [9].</td></tr>
+          <tr><td>Taxes</td><td>Short-term gains taxed as ordinary income.</td><td>Medium—Consider in taxable accounts only for quick flips [5].</td></tr>
+        </table>
+      </section>
+    
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <h2>❓ Frequently Asked Questions</h2>
+        <p><strong>What is volatility decay?</strong> It’s ⚡ the erosion of returns in leveraged ETFs due to daily compounding in volatile markets, even if the underlying is flat [2][3][6].</p>
+        <p><strong>Can I hold a 2x ETF long-term?</strong> 🚫 No, recommended for 1 day only; longer holds amplify decay [1][5].</p>
+        <p><strong>How does Ally handle overnight orders?</strong> Market orders queue for next open, but use limits to avoid poor fills [14][18].</p>
+        <p><strong>Are there fees for leveraged ETFs on Ally?</strong> 💵 $0 commissions for ETFs, but expense ratios apply [10].</p>
+        <p><strong>What’s a good alternative to 2x ETFs?</strong> Unleveraged ETFs or options for less risk [4][7].</p>
+      </section>
+    
+      <!-- GLOSSARY -->
+      <section class="section" id="glossary">
+        <h2>📚 Glossary of Nomenclature</h2>
+        <p><strong>2x Long ETF:</strong> A fund aiming for twice the daily return of an index (e.g., UPRO for S&amp;P 500) [4].</p>
+        <p><strong>⚡ Volatility Decay (Beta Slippage):</strong> Return erosion from daily compounding in volatile conditions [2][3].</p>
+        <p><strong>⏰ Daily Reset:</strong> Rebalancing of leverage at end of each trading day [5][7].</p>
+        <p><strong>Slippage:</strong> Difference between expected and actual execution price [14].</p>
+        <p><strong>Extended Hours Trading:</strong> Trading outside 9:30 AM–4:00 PM ET, with limited liquidity [10][18].</p>
+        <p><strong>Limit Order:</strong> Order to buy/sell at a specified price or better [13][16].</p>
+        <p><strong>Market Order:</strong> Order to buy/sell immediately at current price [12][15].</p>
+        <p><strong>VIX:</strong> Volatility index measuring market fear [1].</p>
+      </section>
+    
+      <!-- REFERENCES -->
+      <section class="section" id="references">
+        <h2>🔗 References</h2>
+        <ol>
+          <li>[0] GraniteShares. (2025, June 30). A Comprehensive Guide to 2x Leveraged ETFs for Investors. https://graniteshares.com/institutional/us/en-us/research/a-comprehensive-guide-to-2x-leveraged-etfs-for-investors/</li>
+          <li>[1] StockTitan. (2025). Complete Guide to 2x and 3x ETFs. https://www.stocktitan.net/articles/leveraged-etfs-how-they-work</li>
+          <li>[2] Crystal Capital Partners. (2024, May 31). Why Do Leveraged ETFs Decay? https://www.crystalfunds.com/insights/leveraged-etfs-decay-understanding-mechanics-and-risks</li>
+          <li>[3] Leveraged-ETFs.com. Leveraged ETF Decay Explained. https://www.leveraged-etfs.com/education/decay</li>
+          <li>[4] Chase. (2025, May 5). Inverse, Leveraged and Volatility ETFs. https://www.chase.com/personal/investments/learning-and-insights/article/inversed-vs-leveraged-vs-volatile-etfs</li>
+          <li>[5] Saxo. Advanced ETF Strategies. https://www.home.saxo/learn/guides/etfs/advanced-etf-strategies</li>
+          <li>[6] Medium. (2024, March 13). A Complete Guide to the Power of Leveraged ETFs. https://medium.com/limitless-investor/a-complete-guide-to-the-power-of-leveraged-etfs-debunking-myths-and-backed-by-data-f553c69ee7a1</li>
+          <li>[7] Fidelity Investments. Leveraged ETFs. https://www.fidelity.com/learning-center/investment-products/etf/types-of-etfs-leveraged-etfs</li>
+          <li>[8] ETF.com. Volatility ETFs: Everything You Need to Know. https://www.etf.com/sections/etf-basics/volatility-etfs-everything-you-need-know</li>
+          <li>[9] Elm Wealth. (2025, April 15). Inverse-Double-Short-Leveraged ETFs Have Arrived! https://elmwealth.com/double-short-etf/</li>
+          <li>[10] StockBrokers.com. (2025, April 17). After-Hours Trading: How it Works & Hours for Each Broker. https://www.stockbrokers.com/education/after-hours-trading</li>
+          <li>[11] Ally. Manage Trading Losses & Market Drops. https://www.ally.com/stories/invest/manage-volatility-trading-losses/</li>
+          <li>[12] YouTube. (2021, January 25). Ally Invest Stock Market Orders Explained. https://www.youtube.com/watch?v=P_z8Aw6ndh4</li>
+          <li>[13] Charles Schwab. 3 Order Types: Market, Limit, and Stop Orders. https://www.schwab.com/learn/story/3-order-types-market-limit-and-stop-orders</li>
+          <li>[14] Ally Invest. Customer Agreement. https://www.ally.com/content/dam/pdf/invest/customer-agreement.pdf</li>
+          <li>[15] Quantified Strategies. 44 Types of Trading Orders. https://www.quantifiedstrategies.com/types-of-trading-orders/</li>
+          <li>[16] Charles Schwab. Extended Hours Trading - Stocks. https://www.schwab.com/stocks/extended-hours-trading</li>
+          <li>[17] Investrade. Extended Hours Trading. https://www.investrade.com/extended-hours/</li>
+          <li>[18] Maoxian. (2024, July 19). Extended Hours Trading Hours for the Top 25 Retail Stock Brokers. https://www.maoxian.com/thoughts/extended-hours-trading-hours-for-the-top-25-retail-stock-brokers</li>
+          <li>[19] ABET. Self-Study Templates. https://www.abet.org/accreditation/accreditation-criteria/self-study-templates/</li>
+          <li>[20] ABET. (2024). Template for a Self-Study Report. https://www.abet.org/wp-content/uploads/2024/09/S002_ANSAC-Self-Study-Questionnaire_2025-2026.docx</li>
+          <li>[22] ABET. Self-Study Report. https://www.abet.org/accreditation/get-accredited/accreditation-step-by-step/self-study-report/</li>
+          <li>[23] Nashua Community College. (2022, July 1). NCC ABET Self Study 2022. https://nashuacc.edu/wp-content/uploads/2022/07/NCC-ABET-Self-Study-Report-6-29-2022-submitted.pdf</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+</body>
 </html>
-
