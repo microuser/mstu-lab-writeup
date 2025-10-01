@@ -8,17 +8,14 @@
     :root {
       --bg: #1a0e0a;           /* deep brown */
       --card: #24130f;         /* darker chestnut */
-      --text: #eae6df;         /* warm off-white */
-      --muted: #d7c7b6;        /* parchment */
+      --text: #c9bfb3;         /* softer warm beige - less bright */
+      --muted: #a89885;        /* muted tan */
       --pumpkin: #d97706;      /* pumpkin orange */
       --maple: #b91c1c;        /* maple red */
-      --gold: #f2a415;         /* golden */
+      --gold: #e8a030;         /* softer golden */
       --plum: #7c3aed;         /* plum accent */
       --leaf: #92400e;         /* brown/orange */
       --ring: rgba(245, 158, 11, 0.35);
-      --text: #eae6df;   /* was #f8f5f2 → warmer, less bright */
-      --muted: #d7c7b6;  /* was #ead9c8 → slightly deeper */
-      --gold: #f2a415;   /* a bit softer than #f59e0b */
     }
 
     @media (prefers-color-scheme: light) {
@@ -40,7 +37,8 @@
         radial-gradient(1200px 800px at 10% -10%, rgba(185,28,28,0.15), transparent 60%),
         radial-gradient(1200px 800px at 110% 110%, rgba(217,119,6,0.15), transparent 60%),
         linear-gradient(180deg, #0e0705, var(--bg));
-      line-height: 1.65;
+      line-height: 1.75;
+      font-size: 15px;
     }
 
     .container {
@@ -65,11 +63,11 @@
 
     .title {
       margin: 0 0 6px 0;
-      font-size: clamp(28px, 3.8vw, 40px);
-      font-weight: 800;
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 700;
       letter-spacing: 0.2px;
-      color: var(--text);
-      text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+      color: #d4c5b5;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
 
     .subtitle {
@@ -100,13 +98,23 @@
     .section h2, .section h3 {
       margin-top: 0;
       color: var(--gold);
-      text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      font-size: 1.4em;
+      font-weight: 600;
+    }
+    
+    .section h4 {
+      color: #d4a960;
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-top: 1em;
     }
 
     .note {
       color: var(--muted);
       font-size: 14px;
       margin: 8px 0 2px 0;
+      opacity: 0.9;
     }
 
     .raw {
@@ -194,9 +202,30 @@
 
     /* Black shade 20% alpha for all content except headers */
     p, ul, ol, li, table, tr, td, th, .note, .raw, .badge, .subtitle, footer, .cta {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.25);
       padding: 8px;
       border-radius: 6px;
+    }
+    
+    p, li {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    
+    strong {
+      color: #d9c9b5;
+      font-weight: 600;
+    }
+    
+    a {
+      color: #f0b050;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(240, 176, 80, 0.3);
+    }
+    
+    a:hover {
+      color: #ffca6a;
+      border-bottom-color: rgba(255, 202, 106, 0.6);
     }
 
     /* Reset padding for inline elements to avoid excessive spacing */
@@ -224,15 +253,44 @@
       <header class="hero">
         <h1 class="title">🍁 Autumn Report • 2x Leveraged ETFs 🍂</h1>
         <p class="subtitle">A seasonal-styled rendering of your write-up with cozy fall tones, crisp typography, and helpful emojis.</p>
-        <section class="section">
-          <h3>🍂 Notes</h3>
-          <ul>
-            <li>This page uses an autumn palette: pumpkin orange, maple red, golden accents, and plum highlights.</li>
-            <li>The write-up is injected dynamically to preserve all characters like < and & without manual escaping.</li>
-            <li>Open this file via a local server for the best experience so the browser can fetch <code>writeup.txt</code>.</li>
-          </ul>
+        <section class="section" id="paper-trader">
+          <h3>📊 Paper Trader App Simulator</h3>
+          <p>Track your paper trades with this interactive journal. Add trades, pair buys with sells, and monitor your performance.</p>
+          
+          <div style="margin: 15px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="downloadTrades()" style="padding: 8px 16px; background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid #4ade80; border-radius: 6px; cursor: pointer; font-weight: 600;">📥 Download JSON</button>
+            <button onclick="document.getElementById('fileInput').click()" style="padding: 8px 16px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 6px; cursor: pointer; font-weight: 600;">📤 Upload JSON</button>
+            <input type="file" id="fileInput" accept=".json,.txt" style="display: none;" onchange="uploadTrades(event)">
+            <button onclick="clearAllTrades()" style="padding: 8px 16px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️ Clear All</button>
+          </div>
+
+          <div id="trade-form" style="margin: 20px 0;">
+            <h4>➕ Add New Trade</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px;">
+              <input type="text" id="ticker" placeholder="Ticker (e.g., MSTU)" style="padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text);">
+              <select id="action" style="padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text);">
+                <option value="BUY">BUY</option>
+                <option value="SELL">SELL</option>
+              </select>
+              <input type="number" id="shares" placeholder="Shares" step="1" style="padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text);">
+              <input type="number" id="price" placeholder="Price" step="0.01" style="padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text);">
+              <input type="date" id="date" style="padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text);">
+            </div>
+            <textarea id="notes" placeholder="Notes (optional)" rows="2" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.3); color: var(--text); margin-bottom: 10px;"></textarea>
+            <button onclick="addTrade()" style="padding: 10px 20px; background: linear-gradient(180deg, #efb43a, var(--gold)); color: #1a0e0a; font-weight: 700; border: none; border-radius: 8px; cursor: pointer;">Add Trade</button>
+          </div>
+
+          <div id="trades-container" style="margin-top: 20px;">
+            <h4>📋 Trade Journal</h4>
+            <div id="trades-list"></div>
+          </div>
+
+          <div id="summary" style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(245,158,11,0.2);">
+            <h4>💰 Portfolio Summary</h4>
+            <div id="summary-content"></div>
+          </div>
         </section>
-      </main>
+      </header>
     </div>
     <main class="content">
       <!-- TITLE + METADATA -->
@@ -653,5 +711,458 @@
       </section>
     </main>
   </div>
+
+  <script>
+    // Trade data storage
+    let trades = [];
+    let tradeIdCounter = 1;
+
+    // Cookie helper functions
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
+    }
+
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+      }
+      return null;
+    }
+
+    // Download trades as JSON
+    function downloadTrades() {
+      const data = {
+        trades: trades,
+        counter: tradeIdCounter,
+        exportDate: new Date().toISOString(),
+        version: '1.0'
+      };
+      
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `paper-trades-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      alert('✅ Trades downloaded successfully!');
+    }
+
+    // Upload trades from JSON file
+    function uploadTrades(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          
+          if (!data.trades || !Array.isArray(data.trades)) {
+            alert('❌ Invalid file format. Expected trades array.');
+            return;
+          }
+
+          if (trades.length > 0) {
+            if (!confirm('⚠️ This will replace your current trades. Continue?')) {
+              return;
+            }
+          }
+
+          trades = data.trades;
+          tradeIdCounter = data.counter || trades.length + 1;
+          
+          saveTrades();
+          renderTrades();
+          
+          alert(`✅ Successfully imported ${trades.length} trades!`);
+        } catch (error) {
+          alert('❌ Error reading file: ' + error.message);
+        }
+      };
+      
+      reader.readAsText(file);
+      event.target.value = ''; // Reset file input
+    }
+
+    // Clear all trades
+    function clearAllTrades() {
+      if (!confirm('⚠️ Delete ALL trades? This cannot be undone!')) return;
+      
+      trades = [];
+      tradeIdCounter = 1;
+      saveTrades();
+      renderTrades();
+      
+      alert('✅ All trades cleared.');
+    }
+
+    // Initialize with default trades
+    function initializeDefaultTrades() {
+      const defaultTrades = [
+        { ticker: 'MSTU', action: 'BUY', shares: 100, price: 52.00, date: '2025-10-01', notes: 'Bull Rocket scenario - BTC rallying', pairedWith: null },
+        { ticker: 'MSTU', action: 'SELL', shares: 100, price: 55.12, date: '2025-10-03', notes: 'Target hit +6%', pairedWith: null },
+        { ticker: 'MSTR', action: 'BUY', shares: 50, price: 385.00, date: '2025-10-05', notes: 'Accumulation zone', pairedWith: null },
+        { ticker: 'TSLL', action: 'BUY', shares: 200, price: 50.00, date: '2025-10-10', notes: 'Tesla earnings play', pairedWith: null },
+        { ticker: 'TSLL', action: 'SELL', shares: 200, price: 53.00, date: '2025-10-11', notes: 'Quick +6% gain', pairedWith: null },
+        { ticker: 'IBIT', action: 'BUY', shares: 150, price: 42.50, date: '2025-10-15', notes: 'Direct BTC exposure during ATM', pairedWith: null }
+      ];
+      
+      defaultTrades.forEach(trade => {
+        trades.push({ ...trade, id: tradeIdCounter++ });
+      });
+      
+      // Auto-pair matching trades
+      autoPairTrades();
+      saveTrades();
+      renderTrades();
+    }
+
+    // Auto-pair matching BUY/SELL trades
+    function autoPairTrades() {
+      const buyTrades = trades.filter(t => t.action === 'BUY' && !t.pairedWith);
+      const sellTrades = trades.filter(t => t.action === 'SELL' && !t.pairedWith);
+      
+      buyTrades.forEach(buy => {
+        const matchingSell = sellTrades.find(sell => 
+          sell.ticker === buy.ticker && 
+          sell.shares === buy.shares && 
+          !sell.pairedWith &&
+          new Date(sell.date) >= new Date(buy.date)
+        );
+        
+        if (matchingSell) {
+          buy.pairedWith = matchingSell.id;
+          matchingSell.pairedWith = buy.id;
+        }
+      });
+    }
+
+    // Load trades from localStorage or cookie
+    function loadTrades() {
+      let saved = localStorage.getItem('paperTrades');
+      
+      // Fallback to cookie if localStorage is empty
+      if (!saved) {
+        saved = getCookie('paperTrades');
+      }
+      
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          trades = data.trades || [];
+          tradeIdCounter = data.counter || 1;
+        } catch (error) {
+          console.error('Error loading trades:', error);
+          initializeDefaultTrades();
+        }
+      } else {
+        initializeDefaultTrades();
+      }
+    }
+
+    // Save trades to both localStorage and cookie
+    function saveTrades() {
+      const data = JSON.stringify({
+        trades: trades,
+        counter: tradeIdCounter
+      });
+      
+      // Save to localStorage
+      try {
+        localStorage.setItem('paperTrades', data);
+      } catch (error) {
+        console.error('localStorage error:', error);
+      }
+      
+      // Save to cookie as backup (expires in 365 days)
+      try {
+        setCookie('paperTrades', data, 365);
+      } catch (error) {
+        console.error('Cookie error:', error);
+      }
+    }
+
+    // Add new trade
+    function addTrade() {
+      const ticker = document.getElementById('ticker').value.toUpperCase().trim();
+      const action = document.getElementById('action').value;
+      const shares = parseInt(document.getElementById('shares').value);
+      const price = parseFloat(document.getElementById('price').value);
+      const date = document.getElementById('date').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      if (!ticker || !shares || !price || !date) {
+        alert('Please fill in all required fields (Ticker, Shares, Price, Date)');
+        return;
+      }
+
+      const trade = {
+        id: tradeIdCounter++,
+        ticker,
+        action,
+        shares,
+        price,
+        date,
+        notes,
+        pairedWith: null
+      };
+
+      trades.push(trade);
+      saveTrades();
+      renderTrades();
+
+      // Clear form
+      document.getElementById('ticker').value = '';
+      document.getElementById('shares').value = '';
+      document.getElementById('price').value = '';
+      document.getElementById('notes').value = '';
+    }
+
+    // Delete trade
+    function deleteTrade(id) {
+      if (!confirm('Delete this trade?')) return;
+      
+      const trade = trades.find(t => t.id === id);
+      if (trade && trade.pairedWith) {
+        const paired = trades.find(t => t.id === trade.pairedWith);
+        if (paired) paired.pairedWith = null;
+      }
+      
+      trades = trades.filter(t => t.id !== id);
+      saveTrades();
+      renderTrades();
+    }
+
+    // Edit trade
+    function editTrade(id) {
+      const trade = trades.find(t => t.id === id);
+      if (!trade) return;
+
+      const newTicker = prompt('Ticker:', trade.ticker);
+      if (newTicker === null) return;
+      
+      const newShares = prompt('Shares:', trade.shares);
+      if (newShares === null) return;
+      
+      const newPrice = prompt('Price:', trade.price);
+      if (newPrice === null) return;
+      
+      const newDate = prompt('Date (YYYY-MM-DD):', trade.date);
+      if (newDate === null) return;
+      
+      const newNotes = prompt('Notes:', trade.notes);
+      if (newNotes === null) return;
+
+      trade.ticker = newTicker.toUpperCase().trim();
+      trade.shares = parseInt(newShares);
+      trade.price = parseFloat(newPrice);
+      trade.date = newDate;
+      trade.notes = newNotes.trim();
+
+      saveTrades();
+      renderTrades();
+    }
+
+    // Pair trades
+    function pairTrade(id) {
+      const trade = trades.find(t => t.id === id);
+      if (!trade) return;
+
+      // Find unpaired trades of opposite action and same ticker
+      const oppositeAction = trade.action === 'BUY' ? 'SELL' : 'BUY';
+      const candidates = trades.filter(t => 
+        t.action === oppositeAction && 
+        t.ticker === trade.ticker && 
+        !t.pairedWith &&
+        t.id !== id
+      );
+
+      if (candidates.length === 0) {
+        alert('No unpaired ' + oppositeAction + ' trades found for ' + trade.ticker);
+        return;
+      }
+
+      const options = candidates.map(t => 
+        `${t.id}: ${t.action} ${t.shares} @ $${t.price.toFixed(2)} on ${t.date}`
+      ).join('\n');
+      
+      const selectedId = prompt('Select trade to pair with:\n\n' + options + '\n\nEnter trade ID:');
+      if (!selectedId) return;
+
+      const pairedTrade = candidates.find(t => t.id === parseInt(selectedId));
+      if (!pairedTrade) {
+        alert('Invalid trade ID');
+        return;
+      }
+
+      // Unpair if already paired
+      if (trade.pairedWith) {
+        const oldPair = trades.find(t => t.id === trade.pairedWith);
+        if (oldPair) oldPair.pairedWith = null;
+      }
+      if (pairedTrade.pairedWith) {
+        const oldPair = trades.find(t => t.id === pairedTrade.pairedWith);
+        if (oldPair) oldPair.pairedWith = null;
+      }
+
+      trade.pairedWith = pairedTrade.id;
+      pairedTrade.pairedWith = trade.id;
+
+      saveTrades();
+      renderTrades();
+    }
+
+    // Unpair trade
+    function unpairTrade(id) {
+      const trade = trades.find(t => t.id === id);
+      if (!trade || !trade.pairedWith) return;
+
+      const paired = trades.find(t => t.id === trade.pairedWith);
+      if (paired) paired.pairedWith = null;
+      trade.pairedWith = null;
+
+      saveTrades();
+      renderTrades();
+    }
+
+    // Calculate P&L for paired trades
+    function calculatePL(buyTrade, sellTrade) {
+      const buyTotal = buyTrade.shares * buyTrade.price;
+      const sellTotal = sellTrade.shares * sellTrade.price;
+      const pl = sellTotal - buyTotal;
+      const plPercent = (pl / buyTotal) * 100;
+      return { pl, plPercent };
+    }
+
+    // Render trades
+    function renderTrades() {
+      const container = document.getElementById('trades-list');
+      
+      // Group trades by ticker
+      const grouped = {};
+      trades.forEach(trade => {
+        if (!grouped[trade.ticker]) grouped[trade.ticker] = [];
+        grouped[trade.ticker].push(trade);
+      });
+
+      let html = '';
+      
+      Object.keys(grouped).sort().forEach(ticker => {
+        const tickerTrades = grouped[ticker].sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        html += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(245,158,11,0.2);">`;
+        html += `<h5 style="margin: 0 0 10px 0; color: var(--gold); font-size: 1.2em;">📈 ${ticker}</h5>`;
+        
+        tickerTrades.forEach(trade => {
+          const isPaired = trade.pairedWith !== null;
+          const pairedTrade = isPaired ? trades.find(t => t.id === trade.pairedWith) : null;
+          const actionColor = trade.action === 'BUY' ? '#4ade80' : '#f87171';
+          
+          html += `<div style="margin: 8px 0; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 6px; border-left: 3px solid ${actionColor};">`;
+          html += `<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 10px;">`;
+          html += `<div style="flex: 1; min-width: 200px;">`;
+          html += `<strong style="color: ${actionColor};">${trade.action}</strong> `;
+          html += `<span style="color: var(--text);">${trade.shares} shares @ $${trade.price.toFixed(2)}</span>`;
+          html += `<br><small style="color: var(--muted);">📅 ${trade.date} | Total: $${(trade.shares * trade.price).toFixed(2)}</small>`;
+          
+          if (trade.notes) {
+            html += `<br><small style="color: var(--muted); font-style: italic;">💭 ${trade.notes}</small>`;
+          }
+          
+          if (isPaired && pairedTrade) {
+            const buyTrade = trade.action === 'BUY' ? trade : pairedTrade;
+            const sellTrade = trade.action === 'SELL' ? trade : pairedTrade;
+            const { pl, plPercent } = calculatePL(buyTrade, sellTrade);
+            const plColor = pl >= 0 ? '#4ade80' : '#f87171';
+            html += `<br><strong style="color: ${plColor};">🔗 Paired | P&L: $${pl.toFixed(2)} (${plPercent >= 0 ? '+' : ''}${plPercent.toFixed(2)}%)</strong>`;
+          }
+          
+          html += `</div>`;
+          html += `<div style="display: flex; gap: 5px; flex-wrap: wrap;">`;
+          html += `<button onclick="editTrade(${trade.id})" style="padding: 5px 10px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 4px; cursor: pointer; font-size: 12px;">✏️ Edit</button>`;
+          
+          if (isPaired) {
+            html += `<button onclick="unpairTrade(${trade.id})" style="padding: 5px 10px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 4px; cursor: pointer; font-size: 12px;">🔓 Unpair</button>`;
+          } else {
+            html += `<button onclick="pairTrade(${trade.id})" style="padding: 5px 10px; background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid #4ade80; border-radius: 4px; cursor: pointer; font-size: 12px;">🔗 Pair</button>`;
+          }
+          
+          html += `<button onclick="deleteTrade(${trade.id})" style="padding: 5px 10px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 4px; cursor: pointer; font-size: 12px;">🗑️ Delete</button>`;
+          html += `</div>`;
+          html += `</div>`;
+          html += `</div>`;
+        });
+        
+        html += `</div>`;
+      });
+
+      container.innerHTML = html || '<p style="color: var(--muted);">No trades yet. Add your first trade above!</p>';
+      
+      renderSummary();
+    }
+
+    // Render summary
+    function renderSummary() {
+      const summary = document.getElementById('summary-content');
+      
+      // Calculate stats
+      const totalTrades = trades.length;
+      const pairedTrades = trades.filter(t => t.pairedWith !== null);
+      const completedPairs = pairedTrades.length / 2;
+      
+      let totalPL = 0;
+      let winningTrades = 0;
+      let losingTrades = 0;
+      
+      const processed = new Set();
+      pairedTrades.forEach(trade => {
+        if (processed.has(trade.id)) return;
+        
+        const paired = trades.find(t => t.id === trade.pairedWith);
+        if (!paired) return;
+        
+        const buyTrade = trade.action === 'BUY' ? trade : paired;
+        const sellTrade = trade.action === 'SELL' ? trade : paired;
+        const { pl } = calculatePL(buyTrade, sellTrade);
+        
+        totalPL += pl;
+        if (pl > 0) winningTrades++;
+        else if (pl < 0) losingTrades++;
+        
+        processed.add(trade.id);
+        processed.add(paired.id);
+      });
+      
+      const winRate = completedPairs > 0 ? (winningTrades / completedPairs * 100) : 0;
+      const plColor = totalPL >= 0 ? '#4ade80' : '#f87171';
+      
+      let html = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">`;
+      html += `<div><strong>Total Trades:</strong> ${totalTrades}</div>`;
+      html += `<div><strong>Completed Pairs:</strong> ${completedPairs}</div>`;
+      html += `<div><strong>Win Rate:</strong> ${winRate.toFixed(1)}% (${winningTrades}W / ${losingTrades}L)</div>`;
+      html += `<div><strong style="color: ${plColor};">Total P&L:</strong> <span style="color: ${plColor}; font-size: 1.2em;">${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}</span></div>`;
+      html += `</div>`;
+      
+      summary.innerHTML = html;
+    }
+
+    // Set today's date as default
+    document.getElementById('date').valueAsDate = new Date();
+
+    // Initialize on load
+    loadTrades();
+    renderTrades();
+  </script>
 </body>
 </html>
