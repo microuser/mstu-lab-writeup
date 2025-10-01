@@ -179,7 +179,7 @@
         );
       background-size: 300% 100%;
       background-repeat: no-repeat;
-      animation: goldenWave 4s ease-in-out infinite;
+      animation: goldenWave 15s ease-in-out infinite;
     }
 
 
@@ -190,6 +190,22 @@
         rgba(185,28,28,0.10) 55%,
         rgba(124,58,237,0.10)
       );
+    }
+
+    /* Black shade 20% alpha for all content except headers */
+    p, ul, ol, li, table, tr, td, th, .note, .raw, .badge, .subtitle, footer, .cta {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    /* Reset padding for inline elements to avoid excessive spacing */
+    li, td, th {
+      padding: 4px 8px;
+    }
+
+    .badge {
+      padding: 6px 10px; /* Restore original badge padding */
     }
 
 
@@ -247,7 +263,9 @@
         <p><strong>⚠️ Key risks:</strong> Higher volatility, potential for amplified losses, management fees (often 0.9–1.5% annually), and tracking errors [0][8].</p>
     
         <h3 id="use-case">Use Case: Short-Term Bullish Trade on Earnings News</h3>
-        <p>Imagine you’re bullish on 🚗 Tesla (TSLA) ahead of its quarterly earnings on October 23, 2025, expecting a strong beat and positive guidance that may drive TSLA up 3–5% in after-hours and the next day [1].</p>
+        
+        <h4>Example 1: Tesla (TSLA)</h4>
+        <p>Imagine you're bullish on 🚗 Tesla (TSLA) ahead of its quarterly earnings on October 23, 2025, expecting a strong beat and positive guidance that may drive TSLA up 3–5% in after-hours and the next day [1].</p>
         <ul>
           <li><strong>🎯 Strategy:</strong> Buy Direxion Daily TSLA Bull 2X Shares (TSLL) at market open on Oct 24, targeting a quick 4–6% gain.</li>
           <li><strong>Entry:</strong> $50/share at open (assuming TSLA opens +2%).</li>
@@ -256,6 +274,18 @@
           <li><strong>Why 2x?</strong> Amplifies short-term conviction without options complexity.</li>
           <li><strong>💰 Outcome example:</strong> If TSLA +3%, TSLL ~+6% ($3 profit/share). If -3%, ~-6%—size small (1–2% of portfolio).</li>
         </ul>
+        
+        <h4>Example 2: MicroStrategy (MSTR)</h4>
+        <p>Imagine you're bullish on 📊 MicroStrategy (MSTR) ahead of a Bitcoin rally or company announcement on October 23, 2025, expecting positive momentum that may drive MSTR up 3–5% in after-hours and the next day [1].</p>
+        <ul>
+          <li><strong>🎯 Strategy:</strong> Buy Defiance Daily Target 2X Long MSTR ETF (MSTU) at market open on Oct 24, targeting a quick 4–6% gain.</li>
+          <li><strong>Entry:</strong> $45/share at open (assuming MSTR opens +2%).</li>
+          <li><strong>Target:</strong> $47.70/share if MSTR hits +2.5% intraday.</li>
+          <li><strong>🛑 Stop-loss:</strong> $43.20 if MSTR drops 2%.</li>
+          <li><strong>Why 2x?</strong> Amplifies short-term conviction without options complexity.</li>
+          <li><strong>💰 Outcome example:</strong> If MSTR +3%, MSTU ~+6% ($2.70 profit/share). If -3%, ~-6%—size small (1–2% of portfolio).</li>
+        </ul>
+        
         <p><em>⚠️ This is speculative; always use risk management [0][9].</em></p>
     
         <h3 id="holding-period">How Long Should You Hold a 2x Long ETF?</h3>
