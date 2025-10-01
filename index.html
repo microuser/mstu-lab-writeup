@@ -102,6 +102,34 @@
       font-size: 1.4em;
       font-weight: 600;
       animation: fadeInSlide 0.6s ease-out;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .speak-btn {
+      padding: 6px 12px;
+      background: rgba(124,58,237,0.2);
+      color: #a78bfa;
+      border: 1px solid #a78bfa;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .speak-btn:hover {
+      background: rgba(124,58,237,0.3);
+      transform: translateY(-1px);
+    }
+    
+    .speak-btn.speaking {
+      background: rgba(248,113,113,0.2);
+      color: #f87171;
+      border-color: #f87171;
     }
     
     .section h4 {
@@ -245,7 +273,7 @@
         <h1 class="title">🍁 2x Leveraged ETF Trading Guide & Paper Trader 🍂</h1>
         <p class="subtitle">Interactive financial simulator with JavaScript cookie & JSON-based trade journal tracking. Features a comprehensive educational writeup on 2x leveraged ETFs (MSTU, MSTR, TSLL) with decision matrices, volatility analysis, and Saylor's ATM strategy context for informed paper trading.</p>
         <section class="section" id="paper-trader">
-          <h3>📊 Paper Trader App Simulator</h3>
+          <h3><span>📊 Paper Trader App Simulator</span><button class="speak-btn" onclick="speakSection('paper-trader')">🔊 Speak All</button></h3>
           <p>Track your paper trades with this interactive journal. Add trades, pair buys with sells, and monitor your performance.</p>
           
           <div style="margin: 15px 0; display: flex; gap: 10px; flex-wrap: wrap;">
@@ -287,7 +315,7 @@
     <main class="content">
       <!-- DISCLAIMER -->
       <section class="section" id="disclaimer" style="border: 2px solid rgba(248,113,113,0.5); background: rgba(248,113,113,0.1);">
-        <h2>⚠️ Educational Disclaimer</h2>
+        <h2><span>⚠️ Educational Disclaimer</span><button class="speak-btn" onclick="speakSection('disclaimer')">🔊 Speak All</button></h2>
         <p><strong>This is an educational thought exercise and paper trading simulator.</strong></p>
         <p>The content presented here serves as the contextual foundation for a <strong>fictional game</strong> designed to explore trading strategies through contemplation and simulation. This tool assists with automatic human-assisted trading scenarios to help you speed-run the application of rules and discover your own strategic approaches in a risk-free environment.</p>
         <p><strong>Key Points:</strong></p>
@@ -304,27 +332,27 @@
 
       <!-- TITLE + METADATA -->
       <section class="section" id="meta">
-        <h2>🍁 Educational Guide to 2x Long Leveraged ETFs</h2>
+        <h2><span>🍁 Educational Guide to 2x Long Leveraged ETFs</span><button class="speak-btn" onclick="speakSection('meta')">🔊 Speak All</button></h2>
         <p><strong>Date:</strong> October 01, 2025</p>
         <p>The guide integrates discussions on 2x long ETFs, including definitions, use cases, holding periods, projections, and practical considerations for trading with Ally Invest, drawing from prior analyses.</p>
       </section>
     
       <!-- ABSTRACT -->
       <section class="section" id="abstract">
-        <h2>📜 Abstract</h2>
+        <h2><span>📜 Abstract</span><button class="speak-btn" onclick="speakSection('abstract')">🔊 Speak All</button></h2>
         <p>This educational guide provides a comprehensive overview of 2x long leveraged exchange-traded funds (ETFs), focusing on their mechanics, risks, and practical applications for short-term trading. Inspired by ABET accreditation standards, it emphasizes student (or learner) outcomes such as understanding volatility decay, risk management, and ethical trading practices. The report explains why leveraged ETFs are suitable only for short-term strategies, offers a simulated use case with Tesla stock, projects performance under volatility, and addresses trading logistics with Ally Invest. Key sections include the purpose (why), detailed solutions, frequently asked questions, misconceptions, a glossary, and references. By October 2025, with market volatility influenced by economic factors, this guide aims to equip investors with knowledge to avoid common pitfalls, supported by data from sources like GraniteShares and Fidelity Investments [0][7]. ⚠️ The primary outcome is to foster informed decision-making, reducing the risk of financial loss from misuse of leveraged products.</p>
       </section>
     
       <!-- INTRODUCTION -->
       <section class="section" id="introduction">
-        <h2>📖 Introduction: Why This Guide?</h2>
+        <h2><span>📖 Introduction: Why This Guide?</span><button class="speak-btn" onclick="speakSection('introduction')">🔊 Speak All</button></h2>
         <p>Leveraged ETFs, particularly 2x long variants, have gained popularity among retail investors seeking amplified returns in bullish markets. However, ⚡ their daily reset mechanism often leads to volatility decay, making them unsuitable for long-term holding and resulting in significant underperformance over time [2][3][5]. This guide addresses the educational need for clear, evidence-based information on these instruments, especially in a volatile 2025 market environment marked by interest rate fluctuations and geopolitical events.</p>
         <p>The purpose aligns with ABET-like educational objectives: to promote “student outcomes” such as applying mathematical models to financial projections (e.g., compounding effects), evaluating ethical risks in high-leverage trading, and demonstrating continuous improvement through risk management strategies [22][23]. Why now? As of October 01, 2025, retail trading platforms like Ally Invest have expanded access to these products, but without proper education, 📉 investors face amplified losses—evidenced by historical data where leveraged ETFs decayed by 10-20% in flat but volatile periods [1][6]. This report provides a solution by synthesizing practical guidance, simulations, and references to empower learners, akin to an engineering curriculum’s focus on problem-solving and safety.</p>
       </section>
     
       <!-- SOLUTION OVERVIEW -->
       <section class="section" id="solution">
-        <h2>🧭 Solution: Comprehensive Guide to 2x Long ETFs</h2>
+        <h2><span>🧭 Solution: Comprehensive Guide to 2x Long ETFs</span><button class="speak-btn" onclick="speakSection('solution')">🔊 Speak All</button></h2>
     
         <h3 id="what-is">What is a 2x Long ETF?</h3>
         <p>A 2x long exchange-traded fund (ETF) is a leveraged investment product designed to provide 📈 twice (2x) the daily performance of an underlying asset or index, such as the S&amp;P 500 [4][7].</p>
@@ -488,7 +516,7 @@
     
       <!-- PROJECTION TABLE -->
       <section class="section" id="projection">
-        <h2>📊 Projection: Volatility Decay Simulation</h2>
+        <h2><span>📊 Projection: Volatility Decay Simulation</span><button class="speak-btn" onclick="speakSection('projection')">🔊 Speak All</button></h2>
         <p>Alternating +5% and −5% daily returns over 20 trading days, starting from $1. 📉 Underlying ends slightly down; 2x decays faster due to compounding [2][6].</p>
         <table>
           <tr>
@@ -525,7 +553,7 @@
     
       <!-- DECISION MATRIX -->
       <section class="section" id="decision-matrix">
-        <h2>🎯 Decision Matrix: When to Buy, When to Leverage</h2>
+        <h2><span>🎯 Decision Matrix: When to Buy, When to Leverage</span><button class="speak-btn" onclick="speakSection('decision-matrix')">🔊 Speak All</button></h2>
         <p>This matrix integrates key indicators—Bitcoin (BTC), IBIT (BlackRock Bitcoin ETF), MicroStrategy (MSTR), and M2 Money Supply—to guide buying and leveraging decisions. Each scenario represents a different market condition with specific action recommendations.</p>
         
         <h3>📊 Key Indicators Explained</h3>
@@ -767,7 +795,7 @@
     
       <!-- CONSIDERATIONS -->
       <section class="section" id="considerations">
-        <h2>🧠 Additional Considerations</h2>
+        <h2><span>🧠 Additional Considerations</span><button class="speak-btn" onclick="speakSection('considerations')">🔊 Speak All</button></h2>
         <table>
           <tr><th>Consideration</th><th>Description</th><th>Impact on 2x Long Holding</th></tr>
           <tr><td>⚡ Volatility Decay</td><td>Daily resets compound losses more than gains in choppy markets.</td><td>High—Shorten hold to 1–3 days in volatile periods (VIX &gt;20) [2][3].</td></tr>
@@ -782,7 +810,7 @@
     
       <!-- FAQ -->
       <section class="section" id="faq">
-        <h2>❓ Frequently Asked Questions</h2>
+        <h2><span>❓ Frequently Asked Questions</span><button class="speak-btn" onclick="speakSection('faq')">🔊 Speak All</button></h2>
         <p><strong>What is volatility decay?</strong> It’s ⚡ the erosion of returns in leveraged ETFs due to daily compounding in volatile markets, even if the underlying is flat [2][3][6].</p>
         <p><strong>Can I hold a 2x ETF long-term?</strong> 🚫 No, recommended for 1 day only; longer holds amplify decay [1][5].</p>
         <p><strong>How does Ally handle overnight orders?</strong> Market orders queue for next open, but use limits to avoid poor fills [14][18].</p>
@@ -792,7 +820,7 @@
     
       <!-- GLOSSARY -->
       <section class="section" id="glossary">
-        <h2>📚 Glossary of Nomenclature</h2>
+        <h2><span>📚 Glossary of Nomenclature</span><button class="speak-btn" onclick="speakSection('glossary')">🔊 Speak All</button></h2>
         <p><strong>2x Long ETF:</strong> A fund aiming for twice the daily return of an index (e.g., UPRO for S&amp;P 500) [4].</p>
         <p><strong>⚡ Volatility Decay (Beta Slippage):</strong> Return erosion from daily compounding in volatile conditions [2][3].</p>
         <p><strong>⏰ Daily Reset:</strong> Rebalancing of leverage at end of each trading day [5][7].</p>
@@ -805,7 +833,7 @@
     
       <!-- REFERENCES -->
       <section class="section" id="references">
-        <h2>🔗 References</h2>
+        <h2><span>🔗 References</span><button class="speak-btn" onclick="speakSection('references')">🔊 Speak All</button></h2>
         <ol>
           <li>[0] GraniteShares. (2025, June 30). A Comprehensive Guide to 2x Leveraged ETFs for Investors. https://graniteshares.com/institutional/us/en-us/research/a-comprehensive-guide-to-2x-leveraged-etfs-for-investors/</li>
           <li>[1] StockTitan. (2025). Complete Guide to 2x and 3x ETFs. https://www.stocktitan.net/articles/leveraged-etfs-how-they-work</li>
@@ -858,6 +886,104 @@
   </div>
 
   <script>
+    // Speech synthesis state
+    let currentSpeech = null;
+    let currentSectionId = null;
+
+    // Speech synthesis functions
+    function speakSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      
+      // If already speaking this section, cancel it
+      if (currentSpeech && currentSectionId === sectionId) {
+        cancelSpeech();
+        return;
+      }
+      
+      // Cancel any existing speech
+      if (currentSpeech) {
+        cancelSpeech();
+      }
+      
+      // Get all text content from the section, excluding the button
+      const button = section.querySelector('.speak-btn');
+      const buttonText = button ? button.textContent : '';
+      
+      // Clone the section to manipulate it
+      const clone = section.cloneNode(true);
+      const cloneButton = clone.querySelector('.speak-btn');
+      if (cloneButton) cloneButton.remove();
+      
+      // Get text content
+      let text = clone.textContent.trim();
+      
+      // Clean up the text
+      text = text.replace(/\s+/g, ' ').trim();
+      
+      if (!text) {
+        alert('No text content to speak in this section.');
+        return;
+      }
+      
+      // Create speech synthesis utterance
+      currentSpeech = new SpeechSynthesisUtterance(text);
+      currentSectionId = sectionId;
+      
+      // Configure speech
+      currentSpeech.rate = 1.0;
+      currentSpeech.pitch = 1.0;
+      currentSpeech.volume = 1.0;
+      
+      // Update button state
+      updateSpeakButton(sectionId, true);
+      
+      // Handle speech end
+      currentSpeech.onend = function() {
+        updateSpeakButton(sectionId, false);
+        currentSpeech = null;
+        currentSectionId = null;
+      };
+      
+      // Handle speech error
+      currentSpeech.onerror = function(event) {
+        console.error('Speech synthesis error:', event);
+        updateSpeakButton(sectionId, false);
+        currentSpeech = null;
+        currentSectionId = null;
+      };
+      
+      // Start speaking
+      window.speechSynthesis.speak(currentSpeech);
+    }
+    
+    function cancelSpeech() {
+      if (currentSpeech) {
+        window.speechSynthesis.cancel();
+        if (currentSectionId) {
+          updateSpeakButton(currentSectionId, false);
+        }
+        currentSpeech = null;
+        currentSectionId = null;
+      }
+    }
+    
+    function updateSpeakButton(sectionId, isSpeaking) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      
+      const button = section.querySelector('.speak-btn');
+      if (!button) return;
+      
+      if (isSpeaking) {
+        button.textContent = '🛑 Cancel Speak';
+        button.classList.add('speaking');
+      } else {
+        button.textContent = '🔊 Speak All';
+        button.classList.remove('speaking');
+      }
+    }
+
     // Trade data storage
     let trades = [];
     let tradeIdCounter = 1;
