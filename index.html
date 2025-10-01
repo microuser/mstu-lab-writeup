@@ -258,6 +258,7 @@
           <p>Track your paper trades with this interactive journal. Add trades, pair buys with sells, and monitor your performance.</p>
           
           <div style="margin: 15px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="loadDemoData()" style="padding: 8px 16px; background: rgba(124,58,237,0.2); color: #a78bfa; border: 1px solid #a78bfa; border-radius: 6px; cursor: pointer; font-weight: 600;">🎮 Demo Data</button>
             <button onclick="downloadTrades()" style="padding: 8px 16px; background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid #4ade80; border-radius: 6px; cursor: pointer; font-weight: 600;">📥 Download JSON</button>
             <button onclick="document.getElementById('fileInput').click()" style="padding: 8px 16px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 6px; cursor: pointer; font-weight: 600;">📤 Upload JSON</button>
             <input type="file" id="fileInput" accept=".json,.txt" style="display: none;" onchange="uploadTrades(event)">
@@ -293,10 +294,26 @@
       </header>
     </div>
     <main class="content">
+      <!-- DISCLAIMER -->
+      <section class="section" id="disclaimer" style="border: 2px solid rgba(248,113,113,0.5); background: rgba(248,113,113,0.1);">
+        <h2>⚠️ Educational Disclaimer</h2>
+        <p><strong>This is an educational thought exercise and paper trading simulator.</strong></p>
+        <p>The content presented here serves as the contextual foundation for a <strong>fictional game</strong> designed to explore trading strategies through contemplation and simulation. This tool assists with automatic human-assisted trading scenarios to help you speed-run the application of rules and discover your own strategic approaches in a risk-free environment.</p>
+        <p><strong>Key Points:</strong></p>
+        <ul>
+          <li>📚 <strong>Educational Purpose Only:</strong> This is a learning tool, not financial advice.</li>
+          <li>🎮 <strong>Paper Trading Simulator:</strong> All trades are simulated with no real money involved.</li>
+          <li>🧠 <strong>Thought Exercise:</strong> Designed for deep contemplation and strategy development.</li>
+          <li>🎯 <strong>No Score System:</strong> There are no winners or losers—only learning and reflection.</li>
+          <li>⚠️ <strong>Not Investment Advice:</strong> Do not use this as a basis for real trading decisions without consulting a qualified financial advisor.</li>
+          <li>📊 <strong>Fictional Scenarios:</strong> Examples and case studies are hypothetical and for illustrative purposes.</li>
+        </ul>
+        <p><em>By using this simulator, you acknowledge that this is purely educational and does not constitute financial, investment, or trading advice. Real trading involves substantial risk of loss.</em></p>
+      </section>
+
       <!-- TITLE + METADATA -->
       <section class="section" id="meta">
         <h2>🍁 Educational Guide to 2x Long Leveraged ETFs</h2>
-        <p><strong>Prepared by:</strong> Grok 4, xAI</p>
         <p><strong>Date:</strong> October 01, 2025</p>
         <p>The guide integrates discussions on 2x long ETFs, including definitions, use cases, holding periods, projections, and practical considerations for trading with Ally Invest, drawing from prior analyses.</p>
       </section>
@@ -944,6 +961,102 @@
       alert('✅ All trades cleared.');
     }
 
+    // Load demo data with 30 trades across the year
+    function loadDemoData() {
+      if (trades.length > 0) {
+        if (!confirm('⚠️ This will replace your current trades with demo data. Continue?')) {
+          return;
+        }
+      }
+
+      trades = [];
+      tradeIdCounter = 1;
+
+      const demoTrades = [
+        // January - MSTR Large Position (will be scaled out throughout year)
+        { ticker: 'MSTR', action: 'BUY', shares: 300, price: 420.00, date: '2025-01-08', notes: 'Large MSTR position - bullish on BTC, bought near top' },
+        
+        // January - Bull Rocket scenario (MSTU)
+        { ticker: 'MSTU', action: 'BUY', shares: 100, price: 48.50, date: '2025-01-15', notes: 'Bull Rocket - BTC breaking $45k, IBIT heavy inflows, M2 expanding' },
+        { ticker: 'MSTU', action: 'SELL', shares: 100, price: 51.40, date: '2025-01-17', notes: 'Target hit +6%, BTC at $47k' },
+        
+        // February - TSLL Earnings Play
+        { ticker: 'TSLL', action: 'BUY', shares: 150, price: 52.00, date: '2025-02-01', notes: 'Tesla Q4 earnings play - expecting delivery beat' },
+        { ticker: 'TSLL', action: 'SELL', shares: 150, price: 55.60, date: '2025-02-02', notes: 'Earnings beat, TSLA +3.5%, TSLL +7%' },
+        
+        // March - MSTR First Sell (small loss)
+        { ticker: 'MSTR', action: 'SELL', shares: 50, price: 410.00, date: '2025-03-12', notes: 'Trimming position, MSTR down -2.4% from entry' },
+        
+        // March - Choppy Waters (MSTU loss)
+        { ticker: 'MSTU', action: 'BUY', shares: 80, price: 50.00, date: '2025-03-20', notes: 'Attempted breakout trade' },
+        { ticker: 'MSTU', action: 'SELL', shares: 80, price: 48.00, date: '2025-03-21', notes: 'Stop loss hit - choppy market, BTC flat' },
+        
+        // April - IBIT Direct Exposure
+        { ticker: 'IBIT', action: 'BUY', shares: 200, price: 40.00, date: '2025-04-05', notes: 'Direct BTC exposure, avoiding MSTR ATM dilution' },
+        
+        // April - MSTR Second Sell (bigger loss during ATM)
+        { ticker: 'MSTR', action: 'SELL', shares: 80, price: 385.00, date: '2025-04-22', notes: 'ATM dilution hitting price, -8.3% loss on this portion' },
+        
+        // May - ATM Completion Pop
+        { ticker: 'MSTU', action: 'BUY', shares: 120, price: 46.00, date: '2025-05-10', notes: 'ATM completion announced - dilution overhang removed' },
+        { ticker: 'MSTU', action: 'SELL', shares: 120, price: 50.60, date: '2025-05-12', notes: 'ATM pop +10%, MSTR beta normalizing' },
+        
+        // May - TSLL Product Launch
+        { ticker: 'TSLL', action: 'BUY', shares: 100, price: 54.00, date: '2025-05-25', notes: 'Cybertruck delivery milestone event' },
+        { ticker: 'TSLL', action: 'SELL', shares: 100, price: 56.70, date: '2025-05-26', notes: 'Event catalyst +5% TSLA, +10% TSLL' },
+        
+        // June - MSTR Third Sell (moderate loss)
+        { ticker: 'MSTR', action: 'SELL', shares: 70, price: 395.00, date: '2025-06-15', notes: 'Continued weakness, -6% loss on this tranche' },
+        
+        // July - FOMO Peak (avoided MSTU)
+        { ticker: 'IBIT', action: 'SELL', shares: 200, price: 48.00, date: '2025-07-15', notes: 'Taking profits - BTC up 20% in month, overheated' },
+        
+        // July - Black Swan (BTC crash)
+        { ticker: 'MSTU', action: 'BUY', shares: 60, price: 52.00, date: '2025-07-28', notes: 'Attempted to catch falling knife - MISTAKE' },
+        { ticker: 'MSTU', action: 'SELL', shares: 60, price: 46.80, date: '2025-07-29', notes: 'Emergency exit - BTC crash -15%, MSTU -10%' },
+        
+        // August - MSTR Fourth Sell (worst loss during crash)
+        { ticker: 'MSTR', action: 'SELL', shares: 50, price: 350.00, date: '2025-08-05', notes: 'Panic sell during BTC crash, -16.7% loss' },
+        
+        // September - Post-ATM Accumulation
+        { ticker: 'MSTU', action: 'BUY', shares: 90, price: 44.00, date: '2025-09-05', notes: 'Post-ATM accumulation - beta returning to normal' },
+        { ticker: 'MSTU', action: 'SELL', shares: 90, price: 46.20, date: '2025-09-07', notes: 'Quick +5% as MSTR correlation improves' },
+        
+        // September - TSLL FSD News
+        { ticker: 'TSLL', action: 'BUY', shares: 120, price: 56.00, date: '2025-09-20', notes: 'FSD regulatory approval rumor' },
+        { ticker: 'TSLL', action: 'SELL', shares: 120, price: 59.40, date: '2025-09-21', notes: 'News confirmed, TSLA +3%, TSLL +6%' },
+        
+        // October - Bull Rocket (current scenario)
+        { ticker: 'MSTU', action: 'BUY', shares: 100, price: 52.00, date: '2025-10-01', notes: 'Bull Rocket - All signals aligned, BTC rallying' },
+        { ticker: 'MSTU', action: 'SELL', shares: 100, price: 55.12, date: '2025-10-03', notes: 'Target hit +6%' },
+        
+        // October - MSTR Final Sell (small recovery but still loss)
+        { ticker: 'MSTR', action: 'SELL', shares: 50, price: 405.00, date: '2025-10-18', notes: 'Final exit from Jan position, -3.6% overall loss' },
+        
+        // October - TSLL Earnings
+        { ticker: 'TSLL', action: 'BUY', shares: 200, price: 50.00, date: '2025-10-24', notes: 'Q3 earnings play - delivery beat expected' },
+        { ticker: 'TSLL', action: 'SELL', shares: 200, price: 53.00, date: '2025-10-25', notes: 'Beat delivered, +6% gain' },
+        
+        // October - IBIT Re-entry
+        { ticker: 'IBIT', action: 'BUY', shares: 150, price: 42.50, date: '2025-10-15', notes: 'Direct BTC exposure during MSTR ATM period' },
+        
+        // October - IBIT Partial Sells
+        { ticker: 'IBIT', action: 'SELL', shares: 50, price: 44.00, date: '2025-10-20', notes: 'Taking partial profits, BTC up 3.5%' },
+        { ticker: 'IBIT', action: 'SELL', shares: 50, price: 45.50, date: '2025-10-27', notes: 'Second partial exit, BTC rally continues' }
+      ];
+
+      demoTrades.forEach(trade => {
+        trades.push({ ...trade, id: tradeIdCounter++, pairedWith: null });
+      });
+
+      // Auto-pair matching trades
+      autoPairTrades();
+      saveTrades();
+      renderTrades();
+
+      alert('✅ Demo data loaded! 30 trades across 2025 covering various market scenarios.');
+    }
+
     // Initialize with default trades
     function initializeDefaultTrades() {
       const defaultTrades = [
@@ -965,23 +1078,51 @@
       renderTrades();
     }
 
-    // Auto-pair matching BUY/SELL trades
+    // FIFO pairing: Match each SELL with oldest available BUY shares
     function autoPairTrades() {
-      const buyTrades = trades.filter(t => t.action === 'BUY' && !t.pairedWith);
-      const sellTrades = trades.filter(t => t.action === 'SELL' && !t.pairedWith);
+      // Clear all existing pairings
+      trades.forEach(t => {
+        t.pairedWith = [];
+        t.remainingShares = t.shares; // Track remaining unpaired shares
+      });
       
-      buyTrades.forEach(buy => {
-        const matchingSell = sellTrades.find(sell => 
-          sell.ticker === buy.ticker && 
-          sell.shares === buy.shares && 
-          !sell.pairedWith &&
-          new Date(sell.date) >= new Date(buy.date)
-        );
+      // Group by ticker
+      const tickers = [...new Set(trades.map(t => t.ticker))];
+      
+      tickers.forEach(ticker => {
+        const tickerTrades = trades.filter(t => t.ticker === ticker).sort((a, b) => new Date(a.date) - new Date(b.date));
+        const buys = tickerTrades.filter(t => t.action === 'BUY');
+        const sells = tickerTrades.filter(t => t.action === 'SELL');
         
-        if (matchingSell) {
-          buy.pairedWith = matchingSell.id;
-          matchingSell.pairedWith = buy.id;
-        }
+        // Process each sell in chronological order
+        sells.forEach(sell => {
+          let sellSharesRemaining = sell.shares;
+          
+          // Match with oldest buys first (FIFO)
+          for (let buy of buys) {
+            if (sellSharesRemaining <= 0) break;
+            if (buy.remainingShares <= 0) continue;
+            if (new Date(buy.date) > new Date(sell.date)) continue; // Can't sell before buying
+            
+            const sharesToPair = Math.min(sellSharesRemaining, buy.remainingShares);
+            
+            // Create pairing record
+            if (!buy.pairedWith) buy.pairedWith = [];
+            if (!sell.pairedWith) sell.pairedWith = [];
+            
+            buy.pairedWith.push({ id: sell.id, shares: sharesToPair });
+            sell.pairedWith.push({ id: buy.id, shares: sharesToPair });
+            
+            buy.remainingShares -= sharesToPair;
+            sellSharesRemaining -= sharesToPair;
+          }
+          
+          // If sell has remaining shares, mark as "Magic" (short or no buy)
+          if (sellSharesRemaining > 0) {
+            if (!sell.pairedWith) sell.pairedWith = [];
+            sell.pairedWith.push({ id: 'magic', shares: sellSharesRemaining });
+          }
+        });
       });
     }
 
@@ -1052,10 +1193,11 @@
         price,
         date,
         notes,
-        pairedWith: null
+        pairedWith: [] // Changed to array to support multiple pairings
       };
 
       trades.push(trade);
+      autoPairTrades(); // Re-pair after adding
       saveTrades();
       renderTrades();
 
@@ -1070,13 +1212,8 @@
     function deleteTrade(id) {
       if (!confirm('Delete this trade?')) return;
       
-      const trade = trades.find(t => t.id === id);
-      if (trade && trade.pairedWith) {
-        const paired = trades.find(t => t.id === trade.pairedWith);
-        if (paired) paired.pairedWith = null;
-      }
-      
       trades = trades.filter(t => t.id !== id);
+      autoPairTrades(); // Re-pair after deleting
       saveTrades();
       renderTrades();
     }
@@ -1107,68 +1244,7 @@
       trade.date = newDate;
       trade.notes = newNotes.trim();
 
-      saveTrades();
-      renderTrades();
-    }
-
-    // Pair trades
-    function pairTrade(id) {
-      const trade = trades.find(t => t.id === id);
-      if (!trade) return;
-
-      // Find unpaired trades of opposite action and same ticker
-      const oppositeAction = trade.action === 'BUY' ? 'SELL' : 'BUY';
-      const candidates = trades.filter(t => 
-        t.action === oppositeAction && 
-        t.ticker === trade.ticker && 
-        !t.pairedWith &&
-        t.id !== id
-      );
-
-      if (candidates.length === 0) {
-        alert('No unpaired ' + oppositeAction + ' trades found for ' + trade.ticker);
-        return;
-      }
-
-      const options = candidates.map(t => 
-        `${t.id}: ${t.action} ${t.shares} @ $${t.price.toFixed(2)} on ${t.date}`
-      ).join('\n');
-      
-      const selectedId = prompt('Select trade to pair with:\n\n' + options + '\n\nEnter trade ID:');
-      if (!selectedId) return;
-
-      const pairedTrade = candidates.find(t => t.id === parseInt(selectedId));
-      if (!pairedTrade) {
-        alert('Invalid trade ID');
-        return;
-      }
-
-      // Unpair if already paired
-      if (trade.pairedWith) {
-        const oldPair = trades.find(t => t.id === trade.pairedWith);
-        if (oldPair) oldPair.pairedWith = null;
-      }
-      if (pairedTrade.pairedWith) {
-        const oldPair = trades.find(t => t.id === pairedTrade.pairedWith);
-        if (oldPair) oldPair.pairedWith = null;
-      }
-
-      trade.pairedWith = pairedTrade.id;
-      pairedTrade.pairedWith = trade.id;
-
-      saveTrades();
-      renderTrades();
-    }
-
-    // Unpair trade
-    function unpairTrade(id) {
-      const trade = trades.find(t => t.id === id);
-      if (!trade || !trade.pairedWith) return;
-
-      const paired = trades.find(t => t.id === trade.pairedWith);
-      if (paired) paired.pairedWith = null;
-      trade.pairedWith = null;
-
+      autoPairTrades(); // Re-pair after editing
       saveTrades();
       renderTrades();
     }
@@ -1201,14 +1277,19 @@
         html += `<div style="margin-bottom: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(245,158,11,0.2);">`;
         html += `<h5 style="margin: 0 0 10px 0; color: var(--gold); font-size: 1.2em;">📈 ${ticker}</h5>`;
         
-        tickerTrades.forEach(trade => {
-          const isPaired = trade.pairedWith !== null;
-          const pairedTrade = isPaired ? trades.find(t => t.id === trade.pairedWith) : null;
-          const actionColor = trade.action === 'BUY' ? '#4ade80' : '#f87171';
+        // First, render all BUY trades
+        const buyTrades = tickerTrades.filter(t => t.action === 'BUY');
+        
+        buyTrades.forEach(trade => {
+          const isPaired = trade.pairedWith && trade.pairedWith.length > 0;
+          const actionColor = '#4ade80';
+          const isSell = false;
+          const shouldCollapse = false;
           
           html += `<div style="margin: 8px 0; padding: 12px; background: rgba(0,0,0,0.4); border-radius: 6px; border-left: 3px solid ${actionColor};">`;
           html += `<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 10px;">`;
           html += `<div style="flex: 1; min-width: 200px;">`;
+          html += `<span style="color: var(--muted); font-size: 11px; font-weight: 600;">#${trade.id}</span> `;
           html += `<strong style="color: ${actionColor};">${trade.action}</strong> `;
           html += `<span style="color: var(--text);">${trade.shares} shares @ $${trade.price.toFixed(2)}</span>`;
           html += `<br><small style="color: var(--muted);">📅 ${trade.date} | Total: $${(trade.shares * trade.price).toFixed(2)}</small>`;
@@ -1217,29 +1298,159 @@
             html += `<br><small style="color: var(--muted); font-style: italic;">💭 ${trade.notes}</small>`;
           }
           
-          if (isPaired && pairedTrade) {
-            const buyTrade = trade.action === 'BUY' ? trade : pairedTrade;
-            const sellTrade = trade.action === 'SELL' ? trade : pairedTrade;
-            const { pl, plPercent } = calculatePL(buyTrade, sellTrade);
-            const plColor = pl >= 0 ? '#4ade80' : '#f87171';
-            html += `<br><strong style="color: ${plColor};">🔗 Paired | P&L: $${pl.toFixed(2)} (${plPercent >= 0 ? '+' : ''}${plPercent.toFixed(2)}%)</strong>`;
+          if (isPaired) {
+            // Calculate total P&L for collapsed bar
+            let totalPL = 0;
+            trade.pairedWith.forEach(pairing => {
+              if (pairing.id === 'magic') return; // Skip magic for total calc
+              const pairedTrade = trades.find(t => t.id === pairing.id);
+              if (!pairedTrade) return;
+              const buyTrade = trade.action === 'BUY' ? trade : pairedTrade;
+              const sellTrade = trade.action === 'SELL' ? trade : pairedTrade;
+              const pl = (sellTrade.price - buyTrade.price) * pairing.shares;
+              totalPL += pl;
+            });
+            const totalPLColor = totalPL >= 0 ? '#4ade80' : '#f87171';
+            
+            // Collapse if SELL with pairings, or BUY with multiple pairings
+            const shouldCollapseMultiple = isPaired && trade.pairedWith.length > 1;
+            
+            if (shouldCollapse || shouldCollapseMultiple) {
+              // Collapsed bar for trades with pairings
+              html += `<br><div onclick="togglePairings(${trade.id})" style="margin-top: 8px; padding: 8px 12px; background: rgba(0,0,0,0.4); border-radius: 6px; border-left: 3px solid ${totalPLColor}; cursor: pointer; user-select: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.6)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'">`;
+              html += `<span id="toggle-icon-${trade.id}" style="display: inline-block; transition: transform 0.2s;">▶</span> `;
+              html += `<strong style="color: ${totalPLColor};">🔗 ${trade.pairedWith.length} Pairing${trade.pairedWith.length > 1 ? 's' : ''} (FIFO)</strong> `;
+              html += `<span style="color: ${totalPLColor};">Total P&L: $${totalPL.toFixed(2)}</span>`;
+              html += `</div>`;
+              html += `<div id="pairings-${trade.id}" style="display: none; margin-top: 4px;">`;
+            } else {
+              html += `<br><div style="margin-top: 8px;">`;
+            }
+            
+            trade.pairedWith.forEach(pairing => {
+              if (pairing.id === 'magic') {
+                // Magic shares (sold without buy) - find the last buy ID for this ticker
+                const lastBuy = trades.filter(t => t.ticker === trade.ticker && t.action === 'BUY' && new Date(t.date) <= new Date(trade.date))
+                  .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+                
+                const buyIdLabel = lastBuy ? `#${lastBuy.id}` : 'No Buy';
+                
+                html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(124,58,237,0.2); border-radius: 4px; border-left: 2px solid #a78bfa;">`;
+                html += `<strong style="color: #a78bfa;">🔗 From ${buyIdLabel} + ✨ Magic (${pairing.shares} shares)</strong> `;
+                html += `<span style="color: var(--muted); font-size: 12px;">Insufficient buy quantity</span>`;
+                html += `</div>`;
+                return;
+              }
+              
+              const pairedTrade = trades.find(t => t.id === pairing.id);
+              if (!pairedTrade) return;
+              
+              const buyTrade = trade.action === 'BUY' ? trade : pairedTrade;
+              const sellTrade = trade.action === 'SELL' ? trade : pairedTrade;
+              
+              // Calculate P&L for this specific pairing
+              const pl = (sellTrade.price - buyTrade.price) * pairing.shares;
+              const plPercent = (pl / (buyTrade.price * pairing.shares)) * 100;
+              const plColor = pl >= 0 ? '#4ade80' : '#f87171';
+              
+              // For BUY trades showing their SELL children
+              if (trade.action === 'BUY') {
+                const sellTrade = pairedTrade;
+                html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(0,0,0,0.3); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">`;
+                html += `<div style="flex: 1; min-width: 200px;">`;
+                html += `<strong style="color: ${plColor};">🔗 SELL #${pairing.id} (${pairing.shares} shares @ $${sellTrade.price.toFixed(2)})</strong> `;
+                html += `<span style="color: ${plColor};">P&L: $${pl.toFixed(2)} (${plPercent >= 0 ? '+' : ''}${plPercent.toFixed(2)}%)</span>`;
+                html += `<br><small style="color: var(--muted);">📅 ${sellTrade.date}</small>`;
+                if (sellTrade.notes) {
+                  html += `<br><small style="color: var(--muted); font-style: italic;">💭 ${sellTrade.notes}</small>`;
+                }
+                html += `</div>`;
+                html += `<div style="display: flex; gap: 4px;">`;
+                html += `<button onclick="editTrade(${sellTrade.id})" style="padding: 3px 8px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 3px; cursor: pointer; font-size: 11px;">✏️</button>`;
+                html += `<button onclick="deleteTrade(${sellTrade.id})" style="padding: 3px 8px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 3px; cursor: pointer; font-size: 11px;">🗑️</button>`;
+                html += `</div>`;
+                html += `</div>`;
+              }
+            });
+            
+            html += `</div>`;
+            
+            // Show remaining shares available
+            if (trade.remainingShares !== undefined) {
+              const remainingColor = trade.remainingShares > 0 ? '#4ade80' : '#888';
+              html += `<br><div style="margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 2px solid ${remainingColor};">`;
+              html += `<strong style="color: ${remainingColor};">📦 Available: ${trade.remainingShares} shares</strong>`;
+              if (trade.remainingShares > 0) {
+                html += ` <span style="color: var(--muted); font-size: 12px;">(Can sell up to ${trade.remainingShares} more)</span>`;
+              } else {
+                html += ` <span style="color: var(--muted); font-size: 12px;">(Position fully closed)</span>`;
+              }
+              html += `</div>`;
+            }
           }
           
           html += `</div>`;
           html += `<div style="display: flex; gap: 5px; flex-wrap: wrap;">`;
           html += `<button onclick="editTrade(${trade.id})" style="padding: 5px 10px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 4px; cursor: pointer; font-size: 12px;">✏️ Edit</button>`;
-          
-          if (isPaired) {
-            html += `<button onclick="unpairTrade(${trade.id})" style="padding: 5px 10px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 4px; cursor: pointer; font-size: 12px;">🔓 Unpair</button>`;
-          } else {
-            html += `<button onclick="pairTrade(${trade.id})" style="padding: 5px 10px; background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid #4ade80; border-radius: 4px; cursor: pointer; font-size: 12px;">🔗 Pair</button>`;
-          }
-          
           html += `<button onclick="deleteTrade(${trade.id})" style="padding: 5px 10px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 4px; cursor: pointer; font-size: 12px;">🗑️ Delete</button>`;
           html += `</div>`;
           html += `</div>`;
           html += `</div>`;
         });
+        
+        // Check for orphaned SELLs (those with magic shares or no pairing)
+        const sellTrades = tickerTrades.filter(t => t.action === 'SELL');
+        const orphanedSells = sellTrades.filter(sell => {
+          if (!sell.pairedWith || sell.pairedWith.length === 0) return true;
+          return sell.pairedWith.some(p => p.id === 'magic');
+        });
+        
+        if (orphanedSells.length > 0) {
+          // Create a "Magic Buy" entry for orphaned sells
+          const actionColor = '#a78bfa';
+          
+          html += `<div style="margin: 8px 0; padding: 12px; background: rgba(124,58,237,0.15); border-radius: 6px; border-left: 3px solid ${actionColor};">`;
+          html += `<div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 10px;">`;
+          html += `<div style="flex: 1; min-width: 200px;">`;
+          html += `<span style="color: var(--muted); font-size: 11px; font-weight: 600;">✨ MAGIC</span> `;
+          html += `<strong style="color: ${actionColor};">BUY</strong> `;
+          html += `<span style="color: var(--text);">∞ shares @ $0.00</span>`;
+          html += `<br><small style="color: var(--muted);">📅 Virtual position | Sells without prior buy</small>`;
+          
+          // Show orphaned sells as children
+          html += `<br><div style="margin-top: 8px;">`;
+          
+          orphanedSells.forEach(sell => {
+            const magicPairing = sell.pairedWith ? sell.pairedWith.find(p => p.id === 'magic') : null;
+            if (!magicPairing) return;
+            
+            const plColor = '#a78bfa';
+            const sellTotal = sell.shares * sell.price;
+            
+            html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(124,58,237,0.2); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">`;
+            html += `<div style="flex: 1; min-width: 200px;">`;
+            html += `<strong style="color: ${plColor};">🔗 SELL #${sell.id} (${magicPairing.shares} shares @ $${sell.price.toFixed(2)})</strong> `;
+            html += `<span style="color: ${plColor};">Revenue: $${(magicPairing.shares * sell.price).toFixed(2)}</span>`;
+            html += `<br><small style="color: var(--muted);">📅 ${sell.date}</small>`;
+            if (sell.notes) {
+              html += `<br><small style="color: var(--muted); font-style: italic;">💭 ${sell.notes}</small>`;
+            }
+            html += `</div>`;
+            html += `<div style="display: flex; gap: 4px;">`;
+            html += `<button onclick="editTrade(${sell.id})" style="padding: 3px 8px; background: rgba(232,160,48,0.2); color: var(--gold); border: 1px solid var(--gold); border-radius: 3px; cursor: pointer; font-size: 11px;">✏️</button>`;
+            html += `<button onclick="deleteTrade(${sell.id})" style="padding: 3px 8px; background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid #f87171; border-radius: 3px; cursor: pointer; font-size: 11px;">🗑️</button>`;
+            html += `</div>`;
+            html += `</div>`;
+          });
+          
+          html += `</div>`;
+          html += `</div>`;
+          html += `<div style="display: flex; gap: 5px; flex-wrap: wrap;">`;
+          html += `<small style="color: var(--muted); font-style: italic;">Virtual buy position for tracking sells without prior buys</small>`;
+          html += `</div>`;
+          html += `</div>`;
+          html += `</div>`;
+        }
         
         html += `</div>`;
       });
@@ -1255,30 +1466,39 @@
       
       // Calculate stats
       const totalTrades = trades.length;
-      const pairedTrades = trades.filter(t => t.pairedWith !== null);
-      const completedPairs = pairedTrades.length / 2;
+      const pairedTrades = trades.filter(t => t.pairedWith && t.pairedWith.length > 0);
       
       let totalPL = 0;
       let winningTrades = 0;
       let losingTrades = 0;
+      let completedPairs = 0;
       
       const processed = new Set();
-      pairedTrades.forEach(trade => {
-        if (processed.has(trade.id)) return;
+      
+      // Count all unique pairings
+      trades.forEach(trade => {
+        if (!trade.pairedWith || trade.pairedWith.length === 0) return;
         
-        const paired = trades.find(t => t.id === trade.pairedWith);
-        if (!paired) return;
-        
-        const buyTrade = trade.action === 'BUY' ? trade : paired;
-        const sellTrade = trade.action === 'SELL' ? trade : paired;
-        const { pl } = calculatePL(buyTrade, sellTrade);
-        
-        totalPL += pl;
-        if (pl > 0) winningTrades++;
-        else if (pl < 0) losingTrades++;
-        
-        processed.add(trade.id);
-        processed.add(paired.id);
+        trade.pairedWith.forEach(pairing => {
+          if (pairing.id === 'magic') return; // Skip magic shares
+          
+          const pairKey = [trade.id, pairing.id].sort().join('-') + '-' + pairing.shares;
+          if (processed.has(pairKey)) return;
+          processed.add(pairKey);
+          
+          const paired = trades.find(t => t.id === pairing.id);
+          if (!paired) return;
+          
+          const buyTrade = trade.action === 'BUY' ? trade : paired;
+          const sellTrade = trade.action === 'SELL' ? trade : paired;
+          
+          const pl = (sellTrade.price - buyTrade.price) * pairing.shares;
+          
+          totalPL += pl;
+          completedPairs++;
+          if (pl > 0) winningTrades++;
+          else if (pl < 0) losingTrades++;
+        });
       });
       
       const winRate = completedPairs > 0 ? (winningTrades / completedPairs * 100) : 0;
@@ -1292,6 +1512,22 @@
       html += `</div>`;
       
       summary.innerHTML = html;
+    }
+
+    // Toggle pairings visibility
+    function togglePairings(tradeId) {
+      const pairingsDiv = document.getElementById(`pairings-${tradeId}`);
+      const toggleIcon = document.getElementById(`toggle-icon-${tradeId}`);
+      
+      if (pairingsDiv.style.display === 'none') {
+        pairingsDiv.style.display = 'block';
+        toggleIcon.style.transform = 'rotate(90deg)';
+        toggleIcon.textContent = '▼';
+      } else {
+        pairingsDiv.style.display = 'none';
+        toggleIcon.style.transform = 'rotate(0deg)';
+        toggleIcon.textContent = '▶';
+      }
     }
 
     // Set today's date as default
