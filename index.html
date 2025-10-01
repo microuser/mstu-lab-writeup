@@ -984,8 +984,8 @@
         { ticker: 'TSLL', action: 'BUY', shares: 150, price: 52.00, date: '2025-02-01', notes: 'Tesla Q4 earnings play - expecting delivery beat' },
         { ticker: 'TSLL', action: 'SELL', shares: 150, price: 55.60, date: '2025-02-02', notes: 'Earnings beat, TSLA +3.5%, TSLL +7%' },
         
-        // March - MSTR First Sell (small loss)
-        { ticker: 'MSTR', action: 'SELL', shares: 50, price: 410.00, date: '2025-03-12', notes: 'Trimming position, MSTR down -2.4% from entry' },
+        // March - MSTR First Sell (small loss) - partial sell, leaving 10 shares
+        { ticker: 'MSTR', action: 'SELL', shares: 40, price: 410.00, date: '2025-03-12', notes: 'Trimming position, MSTR down -2.4% from entry' },
         
         // March - Choppy Waters (MSTU loss)
         { ticker: 'MSTU', action: 'BUY', shares: 80, price: 50.00, date: '2025-03-20', notes: 'Attempted breakout trade' },
@@ -1008,8 +1008,8 @@
         // June - MSTR Third Sell (moderate loss)
         { ticker: 'MSTR', action: 'SELL', shares: 70, price: 395.00, date: '2025-06-15', notes: 'Continued weakness, -6% loss on this tranche' },
         
-        // July - FOMO Peak (avoided MSTU)
-        { ticker: 'IBIT', action: 'SELL', shares: 200, price: 48.00, date: '2025-07-15', notes: 'Taking profits - BTC up 20% in month, overheated' },
+        // July - FOMO Peak (avoided MSTU) - partial sell, leaving 50 shares
+        { ticker: 'IBIT', action: 'SELL', shares: 150, price: 48.00, date: '2025-07-15', notes: 'Taking profits - BTC up 20% in month, overheated' },
         
         // July - Black Swan (BTC crash)
         { ticker: 'MSTU', action: 'BUY', shares: 60, price: 52.00, date: '2025-07-28', notes: 'Attempted to catch falling knife - MISTAKE' },
@@ -1040,9 +1040,9 @@
         // October - IBIT Re-entry
         { ticker: 'IBIT', action: 'BUY', shares: 150, price: 42.50, date: '2025-10-15', notes: 'Direct BTC exposure during MSTR ATM period' },
         
-        // October - IBIT Partial Sells
+        // October - IBIT Partial Sells - leaving 30 shares available
         { ticker: 'IBIT', action: 'SELL', shares: 50, price: 44.00, date: '2025-10-20', notes: 'Taking partial profits, BTC up 3.5%' },
-        { ticker: 'IBIT', action: 'SELL', shares: 50, price: 45.50, date: '2025-10-27', notes: 'Second partial exit, BTC rally continues' }
+        { ticker: 'IBIT', action: 'SELL', shares: 20, price: 45.50, date: '2025-10-27', notes: 'Second partial exit, BTC rally continues' }
       ];
 
       demoTrades.forEach(trade => {
@@ -1322,9 +1322,9 @@
               html += `<strong style="color: ${totalPLColor};">🔗 ${trade.pairedWith.length} Pairing${trade.pairedWith.length > 1 ? 's' : ''} (FIFO)</strong> `;
               html += `<span style="color: ${totalPLColor};">Total P&L: $${totalPL.toFixed(2)}</span>`;
               html += `</div>`;
-              html += `<div id="pairings-${trade.id}" style="display: none; margin-top: 4px;">`;
+              html += `<div id="pairings-${trade.id}" style="display: none; margin-top: 4px; width: 100%;">`;
             } else {
-              html += `<br><div style="margin-top: 8px;">`;
+              html += `<br><div style="margin-top: 8px; width: 100%;">`;
             }
             
             trade.pairedWith.forEach(pairing => {
@@ -1356,13 +1356,19 @@
               // For BUY trades showing their SELL children
               if (trade.action === 'BUY') {
                 const sellTrade = pairedTrade;
-                html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(0,0,0,0.3); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">`;
-                html += `<div style="flex: 1; min-width: 200px;">`;
-                html += `<strong style="color: ${plColor};">🔗 SELL #${pairing.id} (${pairing.shares} shares @ $${sellTrade.price.toFixed(2)})</strong> `;
+                const isPartialSell = sellTrade.shares > pairing.shares;
+                const partialLabel = isPartialSell ? ` [${pairing.shares} of ${sellTrade.shares} total]` : '';
+                
+                html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(0,0,0,0.3); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%; box-sizing: border-box;">`;
+                html += `<div style="flex: 1; min-width: 200px; max-width: 100%;">`;
+                html += `<strong style="color: ${plColor};">🔗 SELL #${pairing.id} (${pairing.shares} shares @ $${sellTrade.price.toFixed(2)})${partialLabel}</strong> `;
                 html += `<span style="color: ${plColor};">P&L: $${pl.toFixed(2)} (${plPercent >= 0 ? '+' : ''}${plPercent.toFixed(2)}%)</span>`;
                 html += `<br><small style="color: var(--muted);">📅 ${sellTrade.date}</small>`;
                 if (sellTrade.notes) {
                   html += `<br><small style="color: var(--muted); font-style: italic;">💭 ${sellTrade.notes}</small>`;
+                }
+                if (isPartialSell) {
+                  html += `<br><small style="color: #f0b050; font-weight: 600;">⚠️ This SELL spans multiple BUYs (split entry)</small>`;
                 }
                 html += `</div>`;
                 html += `<div style="display: flex; gap: 4px;">`;
@@ -1378,12 +1384,17 @@
             // Show remaining shares available
             if (trade.remainingShares !== undefined) {
               const remainingColor = trade.remainingShares > 0 ? '#4ade80' : '#888';
-              html += `<br><div style="margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 2px solid ${remainingColor};">`;
+              html += `<br><div style="margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 2px solid ${remainingColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%; box-sizing: border-box;">`;
+              html += `<div>`;
               html += `<strong style="color: ${remainingColor};">📦 Available: ${trade.remainingShares} shares</strong>`;
               if (trade.remainingShares > 0) {
                 html += ` <span style="color: var(--muted); font-size: 12px;">(Can sell up to ${trade.remainingShares} more)</span>`;
               } else {
                 html += ` <span style="color: var(--muted); font-size: 12px;">(Position fully closed)</span>`;
+              }
+              html += `</div>`;
+              if (trade.remainingShares > 0) {
+                html += `<button onclick="autofillSell('${trade.ticker}', ${trade.remainingShares}, ${trade.id})" style="padding: 5px 12px; background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid #4ade80; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">⚡ Auto-fill SELL</button>`;
               }
               html += `</div>`;
             }
@@ -1427,8 +1438,8 @@
             const plColor = '#a78bfa';
             const sellTotal = sell.shares * sell.price;
             
-            html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(124,58,237,0.2); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">`;
-            html += `<div style="flex: 1; min-width: 200px;">`;
+            html += `<div style="padding: 6px 10px; margin: 4px 0; background: rgba(124,58,237,0.2); border-radius: 4px; border-left: 2px solid ${plColor}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%; box-sizing: border-box;">`;
+            html += `<div style="flex: 1; min-width: 200px; max-width: 100%;">`;
             html += `<strong style="color: ${plColor};">🔗 SELL #${sell.id} (${magicPairing.shares} shares @ $${sell.price.toFixed(2)})</strong> `;
             html += `<span style="color: ${plColor};">Revenue: $${(magicPairing.shares * sell.price).toFixed(2)}</span>`;
             html += `<br><small style="color: var(--muted);">📅 ${sell.date}</small>`;
@@ -1528,6 +1539,27 @@
         toggleIcon.style.transform = 'rotate(0deg)';
         toggleIcon.textContent = '▶';
       }
+    }
+
+    // Auto-fill SELL form from available shares
+    function autofillSell(ticker, shares, buyId) {
+      // Fill in the form fields
+      document.getElementById('ticker').value = ticker;
+      document.getElementById('action').value = 'SELL';
+      document.getElementById('shares').value = shares;
+      document.getElementById('price').value = '';
+      document.getElementById('date').valueAsDate = new Date();
+      document.getElementById('notes').value = `Selling from BUY #${buyId}`;
+      
+      // Scroll to the form
+      document.getElementById('trade-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Focus and select the price field after a short delay
+      setTimeout(() => {
+        const priceField = document.getElementById('price');
+        priceField.focus();
+        priceField.select();
+      }, 500);
     }
 
     // Set today's date as default
