@@ -178,14 +178,9 @@
       100% { background-position: 120% 0, 0 0; }
     }
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .section { animation: none !important; }
-      .section > h2, .section > h3 { animation: none !important; }
-    }
-
+  
     /* Animated gold effect on section titles */
-    .section  {
+    .section  > h2, .section > h3  {
       position: relative;
       padding: 2px 8px;
       border-radius: 8px;
