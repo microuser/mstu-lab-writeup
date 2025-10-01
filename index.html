@@ -340,7 +340,7 @@
       <!-- ABSTRACT -->
       <section class="section" id="abstract">
         <h2><span>📜 Abstract</span><button class="speak-btn" onclick="speakSection('abstract')">🔊 Speak All</button></h2>
-        <p>This educational guide provides a comprehensive overview of 2x long leveraged exchange-traded funds (ETFs), focusing on their mechanics, risks, and practical applications for short-term trading. Inspired by ABET accreditation standards, it emphasizes student (or learner) outcomes such as understanding volatility decay, risk management, and ethical trading practices. The report explains why leveraged ETFs are suitable only for short-term strategies, offers a simulated use case with Tesla stock, projects performance under volatility, and addresses trading logistics with Ally Invest. Key sections include the purpose (why), detailed solutions, frequently asked questions, misconceptions, a glossary, and references. By October 2025, with market volatility influenced by economic factors, this guide aims to equip investors with knowledge to avoid common pitfalls, supported by data from sources like GraniteShares and Fidelity Investments [0][7]. ⚠️ The primary outcome is to foster informed decision-making, reducing the risk of financial loss from misuse of leveraged products.</p>
+        <p>This educational guide provides a comprehensive overview of 2x long leveraged exchange-traded funds (ETFs), focusing on their mechanics, risks, and practical applications for short-term trading. It emphasizes learner outcomes such as understanding volatility decay, risk management, and ethical trading practices. The report explains why leveraged ETFs are suitable only for short-term strategies, offers a simulated use case with Tesla stock, projects performance under volatility, and addresses trading logistics with Ally Invest. Key sections include the purpose (why), detailed solutions, frequently asked questions, misconceptions, a glossary, and references. By October 2025, with market volatility influenced by economic factors, this guide aims to equip investors with knowledge to avoid common pitfalls, supported by data from sources like GraniteShares and Fidelity Investments [0][7]. ⚠️ The primary outcome is to foster informed decision-making, reducing the risk of financial loss from misuse of leveraged products.</p>
       </section>
     
       <!-- INTRODUCTION -->
@@ -808,6 +808,123 @@
         </table>
       </section>
     
+      <!-- ALLY DAY TRADING RESTRICTIONS -->
+      <section class="section" id="ally-day-trading">
+        <h2><span>🏦 Ally Invest: Day Trading Restrictions & Account Types</span><button class="speak-btn" onclick="speakSection('ally-day-trading')">🔊 Speak All</button></h2>
+        <p>Understanding Ally Invest's day trading rules is critical for executing the short-term strategies outlined in this guide. Your account type determines your trading flexibility, especially for leveraged ETFs like MSTU and TSLL. Source: <a href="https://www.ally.com/invest/disclosures/day-trading/" target="_blank">Ally Day Trading Disclosures</a></p>
+        
+        <h3>📊 Margin Accounts: Pattern Day Trader (PDT) Rules</h3>
+        <p><strong>What triggers PDT classification?</strong> If you execute <strong>4 or more day trades</strong> (buying and selling the same security on the same day) within <strong>5 business days</strong>, you'll be classified as a Pattern Day Trader.</p>
+        
+        <h4>⚠️ PDT Requirements & Restrictions</h4>
+        <ul>
+          <li><strong>💰 Minimum Equity:</strong> $25,000 required to maintain day trading privileges. If your balance drops below this threshold, day trading is restricted—you cannot open and close positions the same day until you meet the requirement again.</li>
+          <li><strong>📈 Day Trading Buying Power:</strong> With $25,000+ equity, you get up to <strong>4x your excess equity</strong> for intraday trades. This allows multiple buys and sells in a day as long as positions are closed by market close and you don't exceed your buying power.</li>
+          <li><strong>🚫 Violations:</strong> Exceeding buying power can lead to <strong>margin calls</strong> or a <strong>90-day account restriction</strong> where you can only trade with settled funds.</li>
+          <li><strong>🎯 Leveraged ETFs (MSTU, TSLL):</strong> No specific restrictions mentioned for leveraged ETFs, but they fall under general equity trading rules. The 2x leverage in the ETF itself is separate from margin—you're not borrowing money, just trading a leveraged product.</li>
+        </ul>
+        
+        <h4>💡 Margin Account Strategy for This Guide</h4>
+        <ul>
+          <li><strong>✅ Best for:</strong> Active traders with $25,000+ who want to execute multiple MSTU/TSLL trades per week (e.g., Scenarios 1-3 in Decision Matrix).</li>
+          <li><strong>Example:</strong> Buy MSTU at open on Monday, sell at close (Day Trade 1). Buy TSLL Tuesday, sell Wednesday (not a day trade). Buy MSTU Thursday, sell same day (Day Trade 2). You have 2 more day trades left for the week.</li>
+          <li><strong>⚠️ Risk:</strong> If you drop below $25k mid-week (e.g., losses on MSTU), you lose day trading privileges until you restore equity.</li>
+        </ul>
+        
+        <h3>💵 Cash Accounts: T+1 Settlement & Good Faith Violations</h3>
+        <p><strong>No PDT rule applies</strong>, so there's <strong>no $25,000 minimum</strong>. However, trades are limited by <strong>settled funds</strong> due to <strong>T+1 settlement</strong> (funds from a sale are available the next business day).</p>
+        
+        <h4>⚠️ Cash Account Restrictions</h4>
+        <ul>
+          <li><strong>✅ You CAN:</strong> Buy with settled cash and sell the same day without restriction. The sale is valid, but proceeds won't settle until the next business day (T+1).</li>
+          <li><strong>🚫 You CANNOT:</strong> Use sale proceeds for new purchases that same day without risking a <strong>good faith violation</strong>. If you buy with unsettled funds and then sell before those funds settle, you've violated the rule.</li>
+          <li><strong>📉 Penalty:</strong> 3 good faith violations in a 12-month period = <strong>90-day restriction</strong> to trading only with settled funds (severely limits flexibility).</li>
+          <li><strong>💡 Workaround:</strong> To perform multiple buys and sells in a day, you need enough <strong>separate settled cash upfront</strong> to cover each buy independently (without relying on intraday sales). This makes frequent day trading impractical for most users compared to margin accounts.</li>
+        </ul>
+        
+        <h4>💡 Cash Account Strategy for This Guide</h4>
+        <ul>
+          <li><strong>✅ Best for:</strong> Smaller accounts (&lt;$25k) or conservative traders who want to avoid margin risk. Suitable for 1-2 trades per week with 1-3 day hold times.</li>
+          <li><strong>Example (Safe):</strong> 
+            <ul>
+              <li><strong>Monday:</strong> Buy MSTU with $10k settled cash at open. Sell at close (+6%, now have $10,600 unsettled).</li>
+              <li><strong>Tuesday:</strong> Funds settle. Buy TSLL with $10,600. Sell Wednesday (+4%, now have $11,024 unsettled).</li>
+              <li><strong>Wednesday:</strong> Wait for settlement. Trade again Thursday.</li>
+            </ul>
+          </li>
+          <li><strong>Example (Violation Risk):</strong> 
+            <ul>
+              <li><strong>Monday:</strong> Buy MSTU with $10k settled cash. Sell same day (+6%, $10,600 unsettled).</li>
+              <li><strong>Monday (same day):</strong> Buy TSLL with $10,600 unsettled proceeds. Sell Tuesday. ❌ <strong>Good faith violation</strong> because you bought with unsettled funds and sold before they settled.</li>
+            </ul>
+          </li>
+          <li><strong>⚠️ Limitation:</strong> If you only have $10k settled cash, you can only make 1 day trade per day (buy and sell same security). To make 2+ day trades in one day, you'd need $20k+ in separate settled cash pools.</li>
+        </ul>
+        
+        <h3>🎯 Which Account Type for Leveraged ETF Trading?</h3>
+        <table>
+          <tr>
+            <th>Account Type</th>
+            <th>Minimum Balance</th>
+            <th>Day Trades Allowed</th>
+            <th>Best Use Case</th>
+            <th>Risks</th>
+          </tr>
+          <tr>
+            <td><strong>💰 Margin (PDT)</strong></td>
+            <td>$25,000</td>
+            <td>Unlimited (with 4x buying power)</td>
+            <td>Active day trading of MSTU/TSLL (1-day holds). Multiple trades per week. Scenarios 1-3 in Decision Matrix.</td>
+            <td>Margin calls if equity drops below $25k. 90-day restriction if buying power violated.</td>
+          </tr>
+          <tr>
+            <td><strong>💵 Cash</strong></td>
+            <td>No minimum</td>
+            <td>Limited by settled funds (T+1). Practically 1 day trade per day with full capital.</td>
+            <td>Swing trading MSTU/TSLL (2-3 day holds). 1-2 trades per week. Scenarios 4-6 in Decision Matrix.</td>
+            <td>Good faith violations if using unsettled funds. 90-day restriction after 3 violations.</td>
+          </tr>
+        </table>
+        
+        <h3>📋 Practical Examples: Applying Ally Rules to This Guide</h3>
+        
+        <h4>Scenario A: Margin Account with $30k (PDT Qualified)</h4>
+        <p><strong>Week of Oct 14-18, 2025:</strong></p>
+        <ul>
+          <li><strong>Monday:</strong> Bull Rocket (Scenario 1). Buy 500 MSTU at $52 ($26k). Sell at close at $55.12 (+6%, +$1,560). <em>Day Trade 1/4.</em></li>
+          <li><strong>Tuesday:</strong> Steady Climb (Scenario 2). Buy 400 MSTR at $420 ($168k with 4x buying power). Sell Wednesday at $428 (+1.9%, +$3,200). <em>Not a day trade.</em></li>
+          <li><strong>Thursday:</strong> TSLL earnings play. Buy 300 TSLL at $50 ($15k). Sell same day at $53.50 (+7%, +$1,050). <em>Day Trade 2/4.</em></li>
+          <li><strong>Friday:</strong> 2 day trades left. Can execute 2 more same-day MSTU/TSLL trades if opportunities arise.</li>
+        </ul>
+        <p><strong>✅ Result:</strong> Flexibility to capture multiple 1-day opportunities per week. Total profit: $5,810 (before fees).</p>
+        
+        <h4>Scenario B: Cash Account with $15k</h4>
+        <p><strong>Week of Oct 14-18, 2025:</strong></p>
+        <ul>
+          <li><strong>Monday:</strong> Bull Rocket (Scenario 1). Buy 288 MSTU at $52 ($15k settled). Sell at close at $55.12 (+6%, +$898). Proceeds unsettled until Tuesday.</li>
+          <li><strong>Tuesday:</strong> Funds settle ($15,898). Buy 37 MSTR at $420 ($15,540). Hold for swing trade. Sell Thursday at $428 (+1.9%, +$296). Proceeds unsettled until Friday.</li>
+          <li><strong>Friday:</strong> Funds settle ($15,836). Can trade again next week.</li>
+        </ul>
+        <p><strong>⚠️ Result:</strong> Limited to 2 trades per week due to T+1 settlement. Total profit: $1,194 (before fees). Cannot capitalize on Thursday TSLL opportunity without risking good faith violation.</p>
+        
+        <h3>💡 Key Takeaways for Ally Traders</h3>
+        <ul>
+          <li><strong>🏦 Margin PDT ($25k+):</strong> Ideal for this guide's 1-day leveraged ETF strategies. Allows 4+ day trades per week. Monitor equity daily to avoid dropping below $25k.</li>
+          <li><strong>💵 Cash (&lt;$25k):</strong> Suitable for 2-3 day swing trades. Avoid same-day re-deployment of sale proceeds. Plan trades around T+1 settlement.</li>
+          <li><strong>📊 Leveraged ETFs (MSTU, TSLL):</strong> No special restrictions beyond standard equity rules. The 2x leverage is built into the ETF—you're not using margin to buy them (unless you choose to).</li>
+          <li><strong>⚠️ Risk Management:</strong> Both account types can face 90-day restrictions (PDT for buying power violations, Cash for good faith violations). Always leave a buffer and don't max out your limits.</li>
+          <li><strong>🎯 Strategy Alignment:</strong> Match your account type to your trading frequency. If you have &lt;$25k, focus on Scenarios 4-6 (2-5 day holds) instead of Scenarios 1-3 (1-day holds).</li>
+        </ul>
+        
+        <h3>🔗 Additional Resources</h3>
+        <ul>
+          <li><strong>Ally Day Trading Rules:</strong> <a href="https://www.ally.com/invest/disclosures/day-trading/" target="_blank">Official Disclosure</a></li>
+          <li><strong>Pattern Day Trader FAQ:</strong> <a href="https://www.finra.org/investors/learn-to-invest/advanced-investing/day-trading-margin-requirements-know-rules" target="_blank">FINRA Day Trading Rules</a></li>
+          <li><strong>Good Faith Violations:</strong> <a href="https://www.ally.com/invest/disclosures/trading-violations/" target="_blank">Ally Trading Violations</a></li>
+          <li><strong>T+1 Settlement:</strong> <a href="https://www.sec.gov/oiea/investor-alerts-and-bulletins/ib_marginaccount" target="_blank">SEC Settlement Cycle</a></li>
+        </ul>
+      </section>
+    
       <!-- FAQ -->
       <section class="section" id="faq">
         <h2><span>❓ Frequently Asked Questions</span><button class="speak-btn" onclick="speakSection('faq')">🔊 Speak All</button></h2>
@@ -854,10 +971,6 @@
           <li>[16] Charles Schwab. Extended Hours Trading - Stocks. https://www.schwab.com/stocks/extended-hours-trading</li>
           <li>[17] Investrade. Extended Hours Trading. https://www.investrade.com/extended-hours/</li>
           <li>[18] Maoxian. (2024, July 19). Extended Hours Trading Hours for the Top 25 Retail Stock Brokers. https://www.maoxian.com/thoughts/extended-hours-trading-hours-for-the-top-25-retail-stock-brokers</li>
-          <li>[19] ABET. Self-Study Templates. https://www.abet.org/accreditation/accreditation-criteria/self-study-templates/</li>
-          <li>[20] ABET. (2024). Template for a Self-Study Report. https://www.abet.org/wp-content/uploads/2024/09/S002_ANSAC-Self-Study-Questionnaire_2025-2026.docx</li>
-          <li>[22] ABET. Self-Study Report. https://www.abet.org/accreditation/get-accredited/accreditation-step-by-step/self-study-report/</li>
-          <li>[23] Nashua Community College. (2022, July 1). NCC ABET Self Study 2022. https://nashuacc.edu/wp-content/uploads/2022/07/NCC-ABET-Self-Study-Report-6-29-2022-submitted.pdf</li>
         </ol>
       </section>
     </main>
